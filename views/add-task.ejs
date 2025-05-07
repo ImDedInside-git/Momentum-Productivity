@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Task</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fb;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .user-menu {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .user-icon {
+      font-size: 2.5em;
+      color: #333;
+    }
+
+    .username-tooltip {
+      position: absolute;
+      top: -30px;
+      right: 0;
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.85em;
+      white-space: nowrap;
+      display: none;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 140px;
+    }
+
+    .dropdown a,
+    .dropdown form button {
+      display: block;
+      width: 100%;
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      text-align: left;
+      color: #333;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .dropdown a:hover,
+    .dropdown form button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .add-task-container {
+      width: 90%;
+      max-width: 600px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    h1 {
+      color: #4A4A4A;
+      margin-bottom: 20px;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #4A90E2;
+      box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+    }
+
+    .add-task-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .add-task-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #4A90E2;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+    }
+
+    #dateError {
+      color: #dc3545;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .add-task-container {
+        width: 95%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- User Icon with Tooltip and Dropdown -->
+  <div class="user-menu">
+    <div class="icon-wrapper" 
+         onmouseover="showTooltip()" 
+         onmouseout="hideTooltip()" 
+         onclick="toggleDropdown()">
+      <i class="fas fa-user-circle user-icon"></i>
+      <div class="username-tooltip" id="usernameTooltip">JohnDoe</div>
+      <div class="dropdown" id="userDropdown">
+        <a href="/account">Profile</a>
+        <form action="/logout" method="POST">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Form -->
+  <div class="add-task-container">
+    <h1>Add New Task</h1>
+    <form action="/add-task" method="POST" onsubmit="return validateDueDate()">
+      <div class="form-group">
+        <label for="taskName">Task Name</label>
+        <input type="text" id="taskName" name="taskName" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description </label>
+        <textarea id="description" name="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="dueDate">Due Date & Time</label>
+        <input type="datetime-local" id="dueDate" name="dueDate" required>
+      </div>
+      <div id="dateError"></div>
+      <button type="submit" class="add-task-btn">
+        <i class="fas fa-plus"></i> Add Task
+      </button>
+    </form>
+    <a href="/" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to List
+    </a>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById('userDropdown');
+    const tooltip = document.getElementById('usernameTooltip');
+    let dropdownVisible = false;
+
+    function toggleDropdown() {
+      dropdownVisible = !dropdownVisible;
+      dropdown.style.display = dropdownVisible ? 'block' : 'none';
+    }
+
+    function showTooltip() {
+      tooltip.style.display = 'block';
+    }
+
+    function hideTooltip() {
+      tooltip.style.display = 'none';
+    }
+
+    document.addEventListener('click', function(event) {
+      const iconWrapper = document.querySelector('.icon-wrapper');
+      if (!iconWrapper.contains(event.target)) {
+        dropdown.style.display = 'none';
+        dropdownVisible = false;
+      }
+    });
+
+    function validateDueDate() {
+      const dueDateInput = document.getElementById('dueDate');
+      const dateError = document.getElementById('dateError');
+      if (dueDateInput.value) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const dueDate = new Date(dueDateInput.value);
+        if (dueDate < today) {
+          dateError.textContent = 'Due date cannot be before today.';
+          dateError.style.display = 'block';
+          return false;
+        }
+      }
+      dateError.style.display = 'none';
+      return true;
+    }
+  </script>
+</body>
+</html>

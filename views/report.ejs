@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Report - Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+      --secondary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF000D 100%);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --text-color: #e2e8f0;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --sidebar-bg: #1e293b;
+      --hover-bg: #2d3748;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f7fa;
+      --text-color: #333333;
+      --card-bg: #ffffff;
+      --border-color: #e0e0e0;
+      --sidebar-bg: #ffffff;
+      --hover-bg: #f8fafc;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      padding: 2rem;
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px var(--shadow-color);
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    .sidebar-header {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+    }
+
+    .sidebar-header .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.7;
+      margin-top: -5px;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background: var(--hover-bg);
+      color: var(--text-color);
+      transform: translateX(5px);
+    }
+
+    .nav-link i {
+      margin-right: 10px;
+    }
+
+    .nav-link.active {
+      background: var(--hover-bg);
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .report-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      margin-bottom: 2rem;
+    }
+
+    .editor-container {
+      min-height: 400px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      background: var(--card-bg);
+      margin-bottom: 1rem;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .editor-toolbar button {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .editor-toolbar button:hover {
+      background: var(--hover-bg);
+    }
+
+    .editor-content {
+      min-height: 300px;
+      outline: none;
+      color: var(--text-color);
+    }
+
+    .pdf-viewer {
+      width: 100%;
+      height: 600px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+    }
+
+    .pdf-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .pdf-controls button {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-controls button:hover {
+      background: var(--hover-bg);
+    }
+
+    .form-label {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .form-control, .form-select {
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+      color: var(--text-color);
+    }
+
+    .form-control:focus, .form-select:focus {
+      background-color: var(--card-bg);
+      border-color: #6B73FF;
+      color: var(--text-color);
+      box-shadow: 0 0 0 0.25rem rgba(107, 115, 255, 0.25);
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      padding: 0.8rem 2rem;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(107, 115, 255, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body data-theme="<%= session.theme || 'light' %>">
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>Momentum</h1>
+        <div class="subtitle">Admin Dashboard</div>
+        <p class="text-muted">Welcome, <%= session.username %></p>
+      </div>
+      <nav>
+        <a href="/admin" class="nav-link">
+          <i class="bi bi-people"></i> User Management
+        </a>
+        <a href="/diagrams" class="nav-link">
+          <i class="bi bi-diagram-3"></i> Database Diagrams
+        </a>
+        <a href="/report" class="nav-link active">
+          <i class="bi bi-file-earmark-text"></i> Project Report
+        </a>
+        <a href="/account" class="nav-link">
+          <i class="bi bi-person"></i> Profile
+        </a>
+        <hr>
+        <button class="nav-link w-100 text-start" onclick="toggleTheme()">
+          <i class="bi bi-moon-stars"></i> Toggle Theme
+        </button>
+        <form action="/logout" method="POST" class="d-inline w-100">
+          <button type="submit" class="nav-link w-100 text-start text-danger">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <div class="report-card">
+        <h2 class="mb-4"><i class="bi bi-file-earmark-text"></i> Project Report</h2>
+        <div class="editor-toolbar">
+          <button onclick="formatText('bold')"><i class="bi bi-type-bold"></i></button>
+          <button onclick="formatText('italic')"><i class="bi bi-type-italic"></i></button>
+          <button onclick="formatText('underline')"><i class="bi bi-type-underline"></i></button>
+          <button onclick="formatText('strike')"><i class="bi bi-type-strikethrough"></i></button>
+          <button onclick="formatText('h1')"><i class="bi bi-type-h1"></i></button>
+          <button onclick="formatText('h2')"><i class="bi bi-type-h2"></i></button>
+          <button onclick="formatText('h3')"><i class="bi bi-type-h3"></i></button>
+          <button onclick="formatText('ul')"><i class="bi bi-list-ul"></i></button>
+          <button onclick="formatText('ol')"><i class="bi bi-list-ol"></i></button>
+        </div>
+        <div class="editor-container">
+          <div class="editor-content" contenteditable="true" id="editor">
+            <h1>Chapter 3: Software Requirement Specification (SRS)</h1>
+
+            <h2>3.1 Overview of SRS</h2>
+            <p>A Software Requirement Specification (SRS) document is a comprehensive description of the intended purpose, functionality, and behavior of a software system. It acts as a formal agreement between stakeholders—including developers, end users, and project sponsors—about what the system is expected to accomplish. The primary purpose of the SRS is to define the complete set of requirements for the software under development and to provide a basis for validation, verification, and future enhancements.</p>
+
+            <p>In the software development lifecycle (SDLC), the SRS plays a critical role during the planning and analysis phases. It ensures that all parties involved have a clear understanding of the software goals, operational capabilities, constraints, and performance expectations. Moreover, it provides a foundation for design, development, testing, and maintenance processes by eliminating ambiguity and enabling traceability.</p>
+
+            <p>This document outlines both functional and non-functional requirements of the proposed Momentum Task Management System. It describes how different users will interact with the system, what operations it should support, and how these will be implemented from a software standpoint. It also includes a detailed explanation of use cases, GUI navigation flow, hardware and software dependencies, and the acceptance test plan for system validation.</p>
+
+            <h2>3.2 Requirement Specifications</h2>
+
+            <h3>3.2.1 Functional Requirements</h3>
+            <p>The proposed system is designed to offer a digital solution for managing personal and professional tasks efficiently. At its core, the system facilitates task creation, organization, tracking, and analysis. Functional requirements revolve around several major operations, including user management, task management, analytics, and administrative control.</p>
+
+            <p>Users must be able to log in securely and access a personalized dashboard where they can create, modify, and track tasks. They should be able to define task metadata, such as title, description, priority, due date, and estimated completion time. Additionally, they must be allowed to categorize tasks and track their progress through different statuses.</p>
+
+            <p>Administrators need a more privileged interface that allows them to monitor user activities, manage user accounts, and generate system-wide reports. The system should support the generation of analytical reports such as task completion rates, productivity trends, and user activity summaries. Functional modules will also include search and filter features for ease of navigation, audit logging for transparency, and notifications for upcoming deadlines.</p>
+
+            <h3>3.2.2 Use Case Diagrams (Descriptive Form)</h3>
+            <p>The system includes three primary actors: User, Administrator, and System (Automated Background Services). Each actor interacts with the system through defined operations that can later be visualized in a use case diagram.</p>
+
+            <ul>
+                <li>User logs in to the system → creates a new task → enters task details → sets priority and due date → tracks progress → marks as complete.</li>
+                <li>Administrator logs in → reviews user activities → manages user accounts → generates productivity reports → views system logs.</li>
+                <li>System automatically triggers deadline notifications → generates daily statistics → enforces validation rules to prevent data inconsistencies.</li>
+            </ul>
+
+            <h3>3.2.3 Use Case Descriptions (Scenarios)</h3>
+
+            <p><strong>Use Case Name:</strong> Create New Task<br>
+            <strong>Actor:</strong> User<br>
+            <strong>Description:</strong> The user logs into the system and creates a new task with relevant details and deadlines.<br>
+            <strong>Pre-condition:</strong> User must be authenticated.<br>
+            <strong>Post-condition:</strong> Task is saved in the system database and appears in the user's task list.<br>
+            <strong>Basic Flow of Events:</strong><br>
+            1. User logs in.<br>
+            2. Clicks "Add New Task."<br>
+            3. Fills out task details.<br>
+            4. Submits task.<br>
+            <strong>Alternate Flow:</strong> If input validation fails, error prompts are shown.</p>
+
+            <p><strong>Use Case Name:</strong> Track Task Progress<br>
+            <strong>Actor:</strong> User<br>
+            <strong>Description:</strong> This use case allows users to update task status and track completion progress.<br>
+            <strong>Pre-condition:</strong> Task must exist in the system.<br>
+            <strong>Post-condition:</strong> Task status is updated and reflected in analytics.<br>
+            <strong>Basic Flow of Events:</strong><br>
+            1. User selects a task.<br>
+            2. Updates status (pending/in-progress/completed).<br>
+            3. Records actual completion time.<br>
+            4. Saves changes.<br>
+            <strong>Alternate Flow:</strong> If task is overdue, system highlights it in red.</p>
+
+            <h2>3.3 Non-Functional Requirements</h2>
+
+            <h3>3.3.1 Performance Requirements</h3>
+            <ul>
+                <li>The system must respond to user interactions within 2 seconds under normal load conditions.</li>
+                <li>It should support up to 50 concurrent users during peak times without performance degradation.</li>
+                <li>Task updates and status changes should be reflected immediately.</li>
+                <li>All database transactions must maintain ACID properties for data integrity.</li>
+            </ul>
+
+            <h3>3.3.2 Safety Requirements</h3>
+            <ul>
+                <li>Weekly automated database backups to prevent data loss.</li>
+                <li>Restore mechanism for system recovery.</li>
+                <li>Confirmation prompts for critical operations.</li>
+            </ul>
+
+            <h3>3.3.3 Security Requirements</h3>
+            <ul>
+                <li>Secure session-based authentication.</li>
+                <li>Role-based access control (RBAC).</li>
+                <li>HTTPS encryption for all communications.</li>
+                <li>Input validation and sanitization.</li>
+            </ul>
+
+            <h3>3.3.4 Usability</h3>
+            <ul>
+                <li>Responsive design for all devices.</li>
+                <li>Intuitive navigation and clear labeling.</li>
+                <li>Help section for new users.</li>
+                <li>Minimal learning curve.</li>
+            </ul>
+
+            <h2>3.4 Software and Hardware Requirements</h2>
+
+            <p><strong>Software Requirements:</strong></p>
+            <ul>
+                <li>Operating System: Windows 10 / Ubuntu 20.04</li>
+                <li>Backend: Node.js with Express.js</li>
+                <li>Frontend: EJS with Bootstrap</li>
+                <li>Database: MySQL</li>
+                <li>Development: Visual Studio Code</li>
+                <li>Version Control: Git</li>
+            </ul>
+
+            <p><strong>Hardware Requirements:</strong></p>
+            <ul>
+                <li>Development: Intel i5 Processor, 8GB RAM, 50GB SSD</li>
+                <li>Client: Intel i3 Processor, 4GB RAM</li>
+            </ul>
+
+            <h2>3.5 GUI Navigation Flow</h2>
+            <p>The system begins with a Login Page for user authentication. After successful login, users are directed to their personalized Dashboard displaying task lists and productivity metrics. The interface includes:</p>
+            <ul>
+                <li>Task creation and management forms</li>
+                <li>Calendar view for deadline tracking</li>
+                <li>Analytics dashboard for performance metrics</li>
+                <li>User profile and settings section</li>
+            </ul>
+
+            <h2>3.6 Acceptance Test Plan</h2>
+            <p>The system will undergo User Acceptance Testing (UAT) with the following criteria:</p>
+            <ul>
+                <li>Users can create and manage tasks independently</li>
+                <li>Task status updates are reflected immediately</li>
+                <li>Analytics reports are accurate and accessible</li>
+                <li>System performance meets specified benchmarks</li>
+                <li>Security measures prevent unauthorized access</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pdf-controls">
+          <button onclick="generatePDF()"><i class="bi bi-file-pdf"></i> Generate PDF</button>
+          <button onclick="downloadPDF()"><i class="bi bi-download"></i> Download PDF</button>
+        </div>
+        <div class="pdf-viewer" id="pdfViewer">
+          <!-- PDF will be displayed here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', newTheme);
+      
+      fetch('/update-theme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ theme: newTheme })
+      }).then(response => {
+        if (!response.ok) {
+          console.error('Failed to update theme');
+          body.setAttribute('data-theme', currentTheme);
+        }
+      }).catch(error => {
+        console.error('Error updating theme:', error);
+        body.setAttribute('data-theme', currentTheme);
+      });
+    }
+
+    function formatText(command) {
+      document.execCommand(command, false, null);
+      document.getElementById('editor').focus();
+    }
+
+    function generatePDF() {
+      const element = document.getElementById('editor');
+      const opt = {
+        margin: 1,
+        filename: 'project-report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        // After PDF is generated, display it in the viewer
+        const pdfViewer = document.getElementById('pdfViewer');
+        pdfViewer.innerHTML = '<iframe src="project-report.pdf" width="100%" height="100%" frameborder="0"></iframe>';
+      });
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('editor');
+      const opt = {
+        margin: 1,
+        filename: 'project-report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</body>
+</html> 

@@ -1,0 +1,209 @@
+<header class="main-header">
+    <div class="header-content">
+        <a href="/" class="logo-link">
+            <img src="logo.png" alt="Website Logo" class="logo">
+        </a>
+        <div class="header-right">
+            <a href="/about" class="about-btn">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <% if (session && session.userId) { %>
+                <div class="user-menu">
+                    <button class="user-icon-btn tooltip" id="userMenuBtn" onclick="toggleUserDropdown(event)" data-username="<%= session.username %>">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="tooltiptext"><%= session.username ? session.username : 'Account options' %></span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="/account"><i class="fas fa-user"></i> Account</a>
+                        <div class="divider"></div>
+                        <form action="/logout" method="POST" style="margin:0;">
+                            <button type="submit"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</header>
+
+<style>
+    .main-header {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .logo-link {
+        text-decoration: none;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+    }
+
+    .about-btn {
+        padding: 10px 20px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .about-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .user-icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.8em;
+        color: #764ba2;
+        outline: none;
+        position: relative;
+    }
+
+    .user-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 45px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(102,126,234,0.15);
+        min-width: 160px;
+        padding: 10px 0;
+        text-align: left;
+    }
+
+    .user-dropdown.show {
+        display: block;
+    }
+
+    .user-dropdown a, .user-dropdown form button {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        color: #333;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 1em;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .user-dropdown a:hover, .user-dropdown form button:hover {
+        background: #f4f4fa;
+        color: #764ba2;
+    }
+
+    .user-dropdown .divider {
+        height: 1px;
+        background: #eee;
+        margin: 5px 0;
+    }
+
+    @media (max-width: 600px) {
+        .header-content {
+            width: 95%;
+        }
+
+        .about-btn span {
+            display: none;
+        }
+
+        .about-btn {
+            padding: 10px;
+        }
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.9em;
+    }
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<script>
+    function toggleUserDropdown(event) {
+        event.stopPropagation();
+        var dropdown = document.getElementById('userDropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(event) {
+        var dropdown = document.getElementById('userDropdown');
+        if (dropdown && dropdown.classList.contains('show')) {
+            dropdown.classList.remove('show');
+        }
+    });
+</script> 

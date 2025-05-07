@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Tasks - Momentum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+      --secondary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF000D 100%);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --text-color: #ffffff;
+      --card-bg: #2d2d2d;
+      --border-color: #404040;
+      --sidebar-bg: #2d2d2d;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f7fa;
+      --text-color: #333333;
+      --card-bg: #ffffff;
+      --border-color: #e0e0e0;
+      --sidebar-bg: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      padding: 2rem;
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    .sidebar-header {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+    }
+
+    .sidebar-header .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.7;
+      margin-top: -5px;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background: var(--primary-gradient);
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .nav-link i {
+      margin-right: 10px;
+    }
+
+    /* Theme toggle button specific styles */
+    button.nav-link {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    button.nav-link:hover {
+      background: var(--primary-gradient);
+      color: white;
+      border-color: transparent;
+    }
+
+    /* Logout button specific styles */
+    button.nav-link.text-danger {
+      color: #dc3545 !important;
+    }
+
+    button.nav-link.text-danger:hover {
+      background: #dc3545;
+      color: white !important;
+    }
+
+    .task-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .task-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .badge-completed {
+      background: #2ECC71;
+      color: white;
+    }
+
+    .badge-urgent {
+      background: #FF6B6B;
+      color: white;
+    }
+
+    .badge-scheduled {
+      background: #4A90E2;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body data-theme="<%= theme %>">
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>Momentum</h1>
+        <div class="subtitle">Productivity Tracker</div>
+        <p class="text-muted">Welcome, <%= session.username %></p>
+      </div>
+      <nav>
+        <a href="/" class="nav-link">
+          <i class="bi bi-house-door"></i> Dashboard
+        </a>
+        <a href="/calendar" class="nav-link">
+          <i class="bi bi-calendar3"></i> Calendar
+        </a>
+        <a href="/analytics" class="nav-link">
+          <i class="bi bi-graph-up"></i> Analytics
+        </a>
+        <a href="/admin" class="nav-link active">
+          <i class="bi bi-shield-lock"></i> Admin
+        </a>
+        <a href="/account" class="nav-link">
+          <i class="bi bi-person"></i> Profile
+        </a>
+        <hr>
+        <button class="nav-link w-100 text-start" onclick="toggleTheme()">
+          <i class="bi bi-moon-stars"></i> Toggle Theme
+        </button>
+        <form action="/logout" method="POST">
+          <button type="submit" class="nav-link w-100 text-start text-danger">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="mb-1">Tasks for <%= user.username %></h2>
+          <p class="text-muted mb-0"><%= user.email %></p>
+        </div>
+        <a href="/admin" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left"></i> Back to Users
+        </a>
+      </div>
+      
+      <div class="task-list">
+        <% tasks.forEach(function(task) { %>
+          <div class="task-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="d-flex align-items-center mb-2">
+                  <h5 class="mb-0 me-2"><%= task.title %></h5>
+                  <span class="badge badge-<%= task.status === 'completed' ? 'completed' : task.priority %>">
+                    <%= task.status === 'completed' ? 'Completed' : task.priority.charAt(0).toUpperCase() + task.priority.slice(1) %>
+                  </span>
+                </div>
+                <p class="text-muted mb-2"><%= task.description %></p>
+                <div class="d-flex align-items-center mb-2">
+                  <small class="text-muted me-3">
+                    Created: <%= new Date(task.created_at).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'}) %>
+                  </small>
+                  <% if (task.due_date) { %>
+                    <small class="text-muted">
+                      Due: <%= new Date(task.due_date).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'}) %>
+                    </small>
+                  <% } %>
+                </div>
+                <% if (task.actual_time) { %>
+                  <small class="text-muted">
+                    Time Spent: <%= task.actual_time %> minutes
+                  </small>
+                <% } %>
+              </div>
+              <form action="/admin/delete-task" method="POST" class="d-inline">
+                <input type="hidden" name="taskId" value="<%= task.task_id %>">
+                <input type="hidden" name="userId" value="<%= user.user_id %>">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this task?')">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', newTheme);
+      
+      fetch('/update-theme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ theme: newTheme })
+      });
+    }
+  </script>
+</body>
+</html> 

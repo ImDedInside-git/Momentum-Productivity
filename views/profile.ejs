@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Momentum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+      --secondary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF000D 100%);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --text-color: #e2e8f0;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --sidebar-bg: #1e293b;
+      --hover-bg: #2d3748;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f7fa;
+      --text-color: #333333;
+      --card-bg: #ffffff;
+      --border-color: #e0e0e0;
+      --sidebar-bg: #ffffff;
+      --hover-bg: #f8fafc;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      padding: 2rem;
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px var(--shadow-color);
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    .sidebar-header {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+    }
+
+    .sidebar-header .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.7;
+      margin-top: -5px;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background: var(--hover-bg);
+      color: var(--text-color);
+      transform: translateX(5px);
+    }
+
+    .nav-link i {
+      margin-right: 10px;
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #000DFF;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-section {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .profile-section h3 {
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+      color: var(--text-color);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      background-color: var(--card-bg);
+      border-color: #3b82f6;
+      color: var(--text-color);
+      box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .alert {
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      color: var(--text-color);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .readonly-field {
+      background-color: var(--bg-color);
+      cursor: not-allowed;
+    }
+
+    .password-section {
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+
+    .password-section h4 {
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+    }
+
+    .profile-details {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .detail-item {
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      background: var(--card-bg);
+      box-shadow: 0 2px 8px var(--shadow-color);
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: var(--text-color);
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .detail-value {
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge i {
+      font-size: 1.1rem;
+    }
+
+    /* Theme toggle button specific styles */
+    button.nav-link {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      font-weight: 600;
+      box-shadow: 0 2px 5px var(--shadow-color);
+    }
+
+    button.nav-link:hover {
+      background: var(--hover-bg);
+      color: var(--text-color);
+      border-color: var(--border-color);
+      transform: translateX(5px);
+    }
+
+    /* Logout button specific styles */
+    button.nav-link.text-danger {
+      color: #dc3545 !important;
+    }
+
+    button.nav-link.text-danger:hover {
+      background: #dc3545;
+      color: white !important;
+    }
+  </style>
+</head>
+<body data-theme="<%= theme %>">
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>Momentum</h1>
+        <div class="subtitle"><%= session.role === 'admin' ? 'Admin Dashboard' : 'Productivity Tracker' %></div>
+        <p class="text-muted">Welcome, <%= session.username %></p>
+      </div>
+      <nav>
+        <% if (session.role !== 'admin') { %>
+          <a href="/" class="nav-link">
+            <i class="bi bi-house-door"></i> Dashboard
+          </a>
+          <a href="/calendar" class="nav-link">
+            <i class="bi bi-calendar3"></i> Calendar
+          </a>
+          <a href="/analytics" class="nav-link">
+            <i class="bi bi-graph-up"></i> Analytics
+          </a>
+        <% } else { %>
+          <a href="/admin" class="nav-link">
+            <i class="bi bi-shield-lock"></i> User Management
+          </a>
+        <% } %>
+        <a href="/account" class="nav-link active">
+          <i class="bi bi-person"></i> Profile
+        </a>
+        <hr>
+        <button class="nav-link w-100 text-start" onclick="toggleTheme()">
+          <i class="bi bi-moon-stars"></i> Toggle Theme
+        </button>
+        <form action="/logout" method="POST">
+          <button type="submit" class="nav-link w-100 text-start text-danger">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="text-center">
+          <div class="profile-avatar mx-auto">
+            <i class="bi bi-person"></i>
+          </div>
+          <h2><%= user.username %></h2>
+          <p class="mb-0"><%= user.email %></p>
+        </div>
+      </div>
+
+      <!-- Profile Settings -->
+      <div class="profile-section">
+        <h3>Profile Settings</h3>
+        
+        <% if (error) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
+          </div>
+        <% } %>
+
+        <% if (success) { %>
+          <div class="alert alert-success" role="alert">
+            <%= success %>
+          </div>
+        <% } %>
+
+        <% if (info) { %>
+          <div class="alert alert-info" role="alert">
+            <%= info %>
+          </div>
+        <% } %>
+
+        <div class="profile-details mb-4">
+          <div class="detail-item">
+            <span class="detail-label">Username</span>
+            <span class="detail-value"><%= user.username %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Email</span>
+            <span class="detail-value"><%= user.email %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Date of Birth</span>
+            <span class="detail-value"><%= new Date(user.dob).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'}) %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Theme Preference</span>
+            <span class="detail-value">
+              <% if (theme === 'light') { %>
+                <span class="badge" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000;">
+                  <i class="bi bi-sun"></i> Light
+                </span>
+              <% } else { %>
+                <span class="badge" style="background: linear-gradient(135deg, #4A90E2 0%, #2C3E50 100%); color: #fff;">
+                  <i class="bi bi-moon-stars"></i> Dark
+                </span>
+              <% } %>
+            </span>
+          </div>
+        </div>
+
+        <div class="password-section">
+          <h4>Change Password</h4>
+          <form action="/update-profile" method="POST">
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">Current Password</label>
+              <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm New Password</label>
+              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            </div>
+
+            <div class="text-end mt-4">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Update Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', newTheme);
+      
+      fetch('/update-theme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ theme: newTheme })
+      });
+    }
+  </script>
+</body>
+</html>
