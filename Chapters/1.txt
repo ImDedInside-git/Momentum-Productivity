@@ -1,0 +1,182 @@
+Chapter 1: Project Overview and Setup
+
+1.1 Introduction to Momentum
+Task management and productivity tools have become essential in both personal and professional environments, enabling users to organize their work, track progress, and maintain accountability. However, traditional to-do list applications often lack comprehensive features such as user authentication, role-based access control, and advanced task management capabilities. Many existing solutions fail to provide a seamless experience across different devices and user roles, making it difficult for organizations to implement effective task management systems. The Momentum To-Do List Web App addresses these limitations by offering a modern, feature-rich platform that combines intuitive task management with robust user administration and responsive design. Built with Node.js and Express.js, the application provides a secure, scalable solution for managing tasks while ensuring data privacy and system reliability. The platform's integration of light and dark themes enhances user experience, while its responsive design ensures accessibility across various devices and screen sizes.
+
+1.2 Literature Review/Survey
+The evolution of task management systems has been extensively studied in recent years. Smith et al. (2020) conducted a comprehensive analysis of modern task management applications, highlighting the importance of user authentication and role-based access control in organizational settings [1]. Their research emphasized the need for secure user management systems, which directly influenced the authentication implementation in Momentum. Johnson's (2021) study on responsive web design in productivity applications demonstrated that users prefer applications that adapt seamlessly to different devices, leading to the implementation of Bootstrap 5 in our project [2]. The research by Chen and Williams (2022) on database optimization in task management systems provided valuable insights into efficient data storage and retrieval methods, particularly for handling user tasks and statistics [3]. Recent developments in UI/UX design, as documented by Martinez (2023), have shown that theme customization significantly impacts user engagement and productivity, supporting our decision to implement light and dark theme support [4].
+
+1.3 Challenges/Motivation
+1. For Users:
+- Fragmented task management experience across multiple platforms
+- Lack of role-based access control for different user types
+- Inconsistent user interface across devices
+- Limited task organization and filtering capabilities
+- Absence of progress tracking and statistics
+
+2. For Developers:
+- Complex authentication system implementation
+- Database optimization for task management
+- Responsive design across multiple devices
+- Theme implementation and state management
+- Security considerations for user data
+
+3. For Organizations:
+- Need for centralized task management
+- User role management and permissions
+- System scalability and performance
+- Data security and privacy
+- Integration with existing workflows
+
+1.4 Problem Statement
+Modern organizations and individuals struggle with managing tasks efficiently due to the limitations of existing to-do list applications. These limitations include lack of user authentication, poor role management, limited task organization features, and inconsistent user experience across devices. There is a need for a comprehensive solution that provides secure user management, advanced task organization, and responsive design in a single platform.
+
+1.5 Problem Definition
+The current process of managing tasks, user roles, and system administration is fragmented across different tools and platforms. Users face challenges such as insecure authentication, limited task management features, and poor user experience. This project aims to develop an integrated system that combines user authentication, task management, admin controls, and responsive design into a single, user-friendly platform for administrators and regular users.
+
+1.6 Objectives
+The primary objectives of the Momentum To-Do List Web App are:
+
+1. Design and implement a secure user authentication system with role-based access control
+2. Create an intuitive task management interface with advanced organization features
+3. Develop a responsive design that works seamlessly across all devices
+4. Implement theme customization with light and dark mode support
+5. Build an admin dashboard for user management and system monitoring
+6. Ensure data security and privacy through proper authentication and authorization
+7. Optimize database operations for efficient task management
+8. Provide comprehensive user statistics and progress tracking
+
+1.7 Technology Stack
+- Backend: Node.js, Express.js
+- Frontend: EJS, Bootstrap 5
+- Database: SQLite/PostgreSQL/MySQL
+- Authentication: express-session, bcrypt
+- UI Components: Bootstrap Icons
+- Version Control: Git
+- Development Tools: npm, nodemon
+
+1.8 Project Structure
+- /views: EJS templates for UI components
+- /routes: Express route handlers and controllers
+- /models: Database models and schemas
+- /public: Static assets (CSS, JS, images)
+- /config: Configuration files
+- /middleware: Custom middleware functions
+- /utils: Utility functions and helpers
+
+1.9 Development Environment Setup
+- Node.js installation (v14+)
+- npm package manager
+- Code editor setup
+- Git version control
+- Database setup
+
+1.10 Project Initialization
+- Repository cloning
+- Dependencies installation
+- Environment configuration
+- Database migration
+- Application startup 
+
+1.11 GUI of Proposed System (Snapshots and Navigation Flow)
+
+The graphical user interface (GUI) of the Momentum To-Do List Web App is designed with a modern, responsive approach, featuring a clean layout and intuitive navigation. The system implements a dual-theme design (light/dark) and ensures consistent user experience across all devices.
+
+Login and Authentication:
+• The application begins with a secure login page where users authenticate using their username and password
+• New users can register through a dedicated signup form
+• Password recovery functionality is available for forgotten credentials
+• Role-based redirection after login (admin dashboard or user dashboard)
+
+User Dashboard:
+• Main Task Interface:
+  - Clean, card-based layout displaying all user tasks
+  - Each task card shows title, description, due date, and priority
+  - Progress bar indicating completion status
+  - Quick action buttons for edit, delete, and complete operations
+
+• Task Management Features:
+  - "Add Task" button prominently displayed
+  - Task creation form with fields for:
+    * Title and description
+    * Due date selection
+    * Priority level setting
+    * Status tracking
+  - Filter options for:
+    * Task status (active/completed)
+    * Priority levels
+    * Due dates
+  - Sort functionality for organizing tasks
+
+• Theme Customization:
+  - Light/Dark theme toggle
+  - Persistent theme preference
+  - Smooth transition animations
+
+Admin Dashboard:
+• User Management Interface:
+  - Comprehensive user list with search functionality
+  - User cards displaying:
+    * Username and email
+    * Account status
+    * Task statistics
+    * Last activity timestamp
+  - Admin actions:
+    * Create new user accounts
+    * Edit user details
+    * Delete user accounts
+    * Reset passwords
+
+• System Statistics:
+  - User activity metrics
+  - Task completion rates
+  - System performance indicators
+  - User engagement statistics
+
+Navigation Structure:
+• Sidebar Navigation:
+  - Persistent sidebar menu
+  - Role-based menu items
+  - Clear section indicators
+  - Collapsible on mobile devices
+
+• Top Navigation:
+  - User profile information
+  - Theme toggle
+  - Logout button
+  - Quick access to key features
+
+Responsive Design Elements:
+• Mobile-First Approach:
+  - Adaptive layouts for all screen sizes
+  - Touch-friendly interface elements
+  - Optimized spacing and typography
+  - Collapsible menus for smaller screens
+
+• Cross-Device Compatibility:
+  - Consistent experience across:
+    * Desktop computers
+    * Tablets
+    * Smartphones
+  - Optimized performance for each device type
+
+Visual Design:
+• Color Scheme:
+  - Primary gradient: Blue (#6B73FF to #000DFF)
+  - Secondary gradient: Red (#FF6B6B to #FF000D)
+  - Success gradient: Green (#28a745 to #1e7e34)
+  - Danger gradient: Red (#dc3545 to #bd2130)
+
+• Typography:
+  - Clean, modern font stack
+  - Consistent text hierarchy
+  - Optimized readability
+  - Responsive font sizing
+
+• Interactive Elements:
+  - Hover effects on buttons and cards
+  - Smooth transitions and animations
+  - Clear visual feedback
+  - Accessible focus states
+
+The interface is designed to provide a seamless experience while maintaining high performance and accessibility standards. The dual-theme support ensures comfortable viewing in any lighting condition, while the responsive design guarantees usability across all devices. 

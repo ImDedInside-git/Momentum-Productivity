@@ -1,0 +1,295 @@
+<!-- User Search Component -->
+<div class="user-search">
+  <div class="search-header">
+    <h3><i class="bi bi-search"></i> Search Users</h3>
+    <div class="admin-toggle" id="adminToggle" data-show-admins="false">
+      <button class="btn btn-icon" title="Show All Users">
+        <i class="bi bi-people"></i>
+      </button>
+      <button class="btn btn-icon active" title="Show Admins Only">
+        <i class="bi bi-shield-lock"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-body">
+    <div class="search-input">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-person"></i>
+        </span>
+        <input type="text" 
+               class="form-control" 
+               id="userSearch" 
+               placeholder="Enter username to search"
+               autocomplete="off">
+        <button class="btn btn-primary" id="searchButton">
+          <i class="bi bi-search"></i> Search
+        </button>
+      </div>
+    </div>
+
+    <div class="search-results" id="searchResults">
+      <!-- Results will be populated here -->
+    </div>
+  </div>
+</div>
+
+<style>
+  .user-search {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    overflow: hidden;
+  }
+
+  .search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .search-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .admin-toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.25rem;
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-icon:hover {
+    background: var(--hover-bg);
+    color: var(--text-color);
+  }
+
+  .btn-icon.active {
+    background: var(--primary-gradient);
+    color: white;
+  }
+
+  .search-body {
+    padding: 1.5rem;
+  }
+
+  .search-input {
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .input-group-text {
+    background: var(--card-bg);
+    border: none;
+    color: var(--text-color);
+    opacity: 0.7;
+  }
+
+  .form-control {
+    background: var(--card-bg);
+    border: none;
+    color: var(--text-color);
+    padding: 0.75rem 1rem;
+  }
+
+  .form-control:focus {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-gradient);
+    filter: brightness(1.1);
+  }
+
+  .search-results {
+    margin-top: 1rem;
+  }
+
+  .user-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .user-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--shadow-color);
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+  }
+
+  .user-details h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .user-details p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    opacity: 0.7;
+  }
+
+  .user-role {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .user-role.admin {
+    background: var(--primary-gradient);
+    color: white;
+  }
+
+  .user-role.user {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const adminToggle = document.getElementById('adminToggle');
+  const searchInput = document.getElementById('userSearch');
+  const searchButton = document.getElementById('searchButton');
+  const searchResults = document.getElementById('searchResults');
+  let showAdminsOnly = false;
+
+  // Toggle admin filter
+  adminToggle.addEventListener('click', function(e) {
+    const button = e.target.closest('.btn-icon');
+    if (!button) return;
+
+    // Update active state
+    adminToggle.querySelectorAll('.btn-icon').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    // Update filter state
+    showAdminsOnly = button.querySelector('.bi-shield-lock') !== null;
+    adminToggle.setAttribute('data-show-admins', showAdminsOnly);
+
+    // Trigger search if there's a search term
+    if (searchInput.value.trim()) {
+      performSearch();
+    }
+  });
+
+  // Perform search
+  async function performSearch() {
+    const searchTerm = searchInput.value.trim();
+    if (!searchTerm) {
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    try {
+      const response = await fetch(`/admin/search-users?q=${encodeURIComponent(searchTerm)}&admins=${showAdminsOnly}`);
+      const data = await response.json();
+
+      if (data.success) {
+        displayResults(data.users);
+      } else {
+        searchResults.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+      }
+    } catch (error) {
+      console.error('Error searching users:', error);
+      searchResults.innerHTML = '<div class="alert alert-danger">An error occurred while searching users</div>';
+    }
+  }
+
+  // Display search results
+  function displayResults(users) {
+    if (users.length === 0) {
+      searchResults.innerHTML = '<div class="alert alert-info">No users found</div>';
+      return;
+    }
+
+    searchResults.innerHTML = users.map(user => `
+      <div class="user-card">
+        <div class="user-info">
+          <div class="user-avatar">
+            ${user.username.charAt(0).toUpperCase()}
+          </div>
+          <div class="user-details">
+            <h5>${user.username}</h5>
+            <p>${user.email}</p>
+          </div>
+        </div>
+        <span class="user-role ${user.role}">${user.role}</span>
+      </div>
+    `).join('');
+  }
+
+  // Search event listeners
+  searchButton.addEventListener('click', performSearch);
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+});
+</script> 

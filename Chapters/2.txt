@@ -1,0 +1,50 @@
+Chapter 2: Database Design and Models
+
+2.1 Database Schema
+- Users table
+  * user_id (Primary Key)
+  * username
+  * password (hashed)
+  * email
+  * is_admin
+  * created_at
+  * last_activity
+
+- Tasks table
+  * task_id (Primary Key)
+  * user_id (Foreign Key)
+  * title
+  * description
+  * status
+  * due_date
+  * priority
+  * created_at
+  * completed_at
+
+2.2 Model Definitions
+- User Model
+  * Properties and validations
+  * Password hashing methods
+  * User statistics methods
+
+- Task Model
+  * Properties and validations
+  * Status management
+  * Date handling
+
+2.3 Database Relationships
+- One-to-Many: User to Tasks
+- Cascading deletes
+- Referential integrity
+
+2.4 Data Validation
+- Input sanitization
+- Data type validation
+- Required field checks
+- Unique constraints
+
+2.5 Database Operations
+- CRUD operations
+- Query optimization
+- Transaction management
+- Error handling 

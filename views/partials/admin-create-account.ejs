@@ -1,0 +1,281 @@
+<!-- Admin Account Creation Form -->
+<div class="admin-create-account">
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="bi bi-person-plus"></i> Create Admin Account</h3>
+    </div>
+    <div class="card-body">
+      <form action="/admin/create-account" method="POST" id="createAdminForm">
+        <!-- Security Verification -->
+        <div class="mb-4">
+          <div class="form-floating">
+            <input type="password" 
+                   class="form-control" 
+                   id="currentAdminPassword" 
+                   name="currentAdminPassword" 
+                   placeholder="Current Admin Password"
+                   required>
+            <label for="currentAdminPassword">Current Admin Password</label>
+          </div>
+          <small class="text-muted">Please enter your current admin password to verify your identity</small>
+        </div>
+
+        <!-- New Admin Details -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" 
+                     class="form-control" 
+                     id="newAdminUsername" 
+                     name="newAdminUsername" 
+                     placeholder="Username"
+                     required>
+              <label for="newAdminUsername">Username</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="email" 
+                     class="form-control" 
+                     id="newAdminEmail" 
+                     name="newAdminEmail" 
+                     placeholder="Email"
+                     required>
+              <label for="newAdminEmail">Email</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="password" 
+                     class="form-control" 
+                     id="newAdminPassword" 
+                     name="newAdminPassword" 
+                     placeholder="Password"
+                     required>
+              <label for="newAdminPassword">Password</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="password" 
+                     class="form-control" 
+                     id="confirmPassword" 
+                     name="confirmPassword" 
+                     placeholder="Confirm Password"
+                     required>
+              <label for="confirmPassword">Confirm Password</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password Requirements -->
+        <div class="password-requirements mt-3">
+          <h6>Password Requirements:</h6>
+          <ul class="requirements-list">
+            <li id="length"><i class="bi bi-x-circle"></i> At least 8 characters</li>
+            <li id="uppercase"><i class="bi bi-x-circle"></i> One uppercase letter</li>
+            <li id="lowercase"><i class="bi bi-x-circle"></i> One lowercase letter</li>
+            <li id="number"><i class="bi bi-x-circle"></i> One number</li>
+            <li id="special"><i class="bi bi-x-circle"></i> One special character</li>
+          </ul>
+        </div>
+
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-person-plus"></i> Create Admin Account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .admin-create-account {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+  }
+
+  .card-header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+  }
+
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .form-floating > .form-control {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+
+  .form-floating > .form-control:focus {
+    background-color: var(--card-bg);
+    border-color: #3b82f6;
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+  }
+
+  .password-requirements {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .password-requirements h6 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .requirements-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+
+  .requirements-list li i {
+    font-size: 1rem;
+  }
+
+  .requirements-list li.valid {
+    color: #28a745;
+    opacity: 1;
+  }
+
+  .requirements-list li.valid i {
+    color: #28a745;
+  }
+
+  .btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-gradient);
+    filter: brightness(1.1);
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('createAdminForm');
+  const password = document.getElementById('newAdminPassword');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const requirements = {
+    length: document.getElementById('length'),
+    uppercase: document.getElementById('uppercase'),
+    lowercase: document.getElementById('lowercase'),
+    number: document.getElementById('number'),
+    special: document.getElementById('special')
+  };
+
+  // Password validation
+  function validatePassword() {
+    const value = password.value;
+    
+    // Length check
+    if (value.length >= 8) {
+      requirements.length.classList.add('valid');
+      requirements.length.querySelector('i').className = 'bi bi-check-circle-fill';
+    } else {
+      requirements.length.classList.remove('valid');
+      requirements.length.querySelector('i').className = 'bi bi-x-circle';
+    }
+
+    // Uppercase check
+    if (/[A-Z]/.test(value)) {
+      requirements.uppercase.classList.add('valid');
+      requirements.uppercase.querySelector('i').className = 'bi bi-check-circle-fill';
+    } else {
+      requirements.uppercase.classList.remove('valid');
+      requirements.uppercase.querySelector('i').className = 'bi bi-x-circle';
+    }
+
+    // Lowercase check
+    if (/[a-z]/.test(value)) {
+      requirements.lowercase.classList.add('valid');
+      requirements.lowercase.querySelector('i').className = 'bi bi-check-circle-fill';
+    } else {
+      requirements.lowercase.classList.remove('valid');
+      requirements.lowercase.querySelector('i').className = 'bi bi-x-circle';
+    }
+
+    // Number check
+    if (/[0-9]/.test(value)) {
+      requirements.number.classList.add('valid');
+      requirements.number.querySelector('i').className = 'bi bi-check-circle-fill';
+    } else {
+      requirements.number.classList.remove('valid');
+      requirements.number.querySelector('i').className = 'bi bi-x-circle';
+    }
+
+    // Special character check
+    if (/[!@#$%^&*]/.test(value)) {
+      requirements.special.classList.add('valid');
+      requirements.special.querySelector('i').className = 'bi bi-check-circle-fill';
+    } else {
+      requirements.special.classList.remove('valid');
+      requirements.special.querySelector('i').className = 'bi bi-x-circle';
+    }
+  }
+
+  // Form submission validation
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Check if passwords match
+    if (password.value !== confirmPassword.value) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    // Check if all requirements are met
+    const allValid = Object.values(requirements).every(req => req.classList.contains('valid'));
+    if (!allValid) {
+      alert('Please meet all password requirements!');
+      return;
+    }
+
+    // If all validations pass, submit the form
+    form.submit();
+  });
+
+  // Real-time password validation
+  password.addEventListener('input', validatePassword);
+});
+</script> 

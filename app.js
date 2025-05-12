@@ -45,8 +45,8 @@ pool.getConnection((err, connection) => {
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    dob DATE NOT NULL,
+    email VARCHAR(255) DEFAULT 'user@example.com',
+    dob DATE DEFAULT '1900-01-01',
     role VARCHAR(50) DEFAULT 'user',
     isAdmin BOOLEAN DEFAULT FALSE,
     theme_preference ENUM('light', 'dark') DEFAULT 'light'
@@ -965,7 +965,8 @@ app.get("/admin", (req, res) => {
       res.render("admin", {
         users: users,
         session: req.session,
-        theme: req.session.theme || 'light'
+        theme: req.session.theme || 'light',
+        searchQuery: ''
       });
     });
   });
@@ -1171,6 +1172,124 @@ app.post("/submit-report", (req, res) => {
       });
     });
   });
+});
+
+// Create user account route
+app.post("/admin/create-user", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
+  // Check if user is admin
+  pool.query('SELECT isAdmin FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+    if (err || !results[0] || !results[0].isAdmin) {
+      return res.redirect("/");
+    }
+
+    const { username, email, password, isAdmin, dob } = req.body;
+
+    // Hash the password
+    bcrypt.hash(password, 10, (err, hashedPassword) => {
+      if (err) {
+        console.error("Error hashing password:", err);
+        return res.redirect("/admin");
+      }
+
+      // Create the user with default values if not provided
+      const newUser = {
+        username,
+        email: email || 'user@example.com',
+        password: hashedPassword,
+        isAdmin: isAdmin === 'true',
+        role: isAdmin === 'true' ? 'admin' : 'user',
+        dob: dob || '1900-01-01'
+      };
+
+      pool.query("INSERT INTO users SET ?", newUser, (err) => {
+        if (err) {
+          console.error("Error creating user account:", err);
+          return res.redirect("/admin");
+        }
+        res.redirect("/admin");
+      });
+    });
+  });
+});
+
+// Update username route
+app.post("/admin/update-username", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
+  // Check if user is admin
+  pool.query('SELECT isAdmin FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+    if (err || !results[0] || !results[0].isAdmin) {
+      return res.redirect("/");
+    }
+
+    const { userId, newUsername } = req.body;
+
+    // Don't allow admin to change their own username
+    if (parseInt(userId) === req.session.userId) {
+      return res.redirect("/admin");
+    }
+
+    // Update the username
+    pool.query("UPDATE users SET username = ? WHERE id = ?", [newUsername, userId], (err) => {
+      if (err) {
+        console.error("Error updating username:", err);
+      }
+      res.redirect("/admin");
+    });
+  });
+});
+
+// Admin search user route
+app.get('/admin/search-user', async (req, res) => {
+  if (!req.session.user || !req.session.user.isAdmin) {
+    return res.redirect('/login');
+  }
+
+  try {
+    const searchUsername = req.query.searchUsername || '';
+    const showAdmins = req.query.showAdmins === 'on';
+    
+    let query = `
+      SELECT u.*, 
+        COUNT(t.id) as total_tasks,
+        SUM(CASE WHEN t.completed = 1 THEN 1 ELSE 0 END) as completed_tasks
+      FROM users u
+      LEFT JOIN tasks t ON u.id = t.user_id
+      WHERE u.id != ?
+    `;
+    
+    const params = [req.session.user.id];
+    
+    if (searchUsername) {
+      query += ` AND u.username LIKE ?`;
+      params.push(`%${searchUsername}%`);
+    }
+    
+    if (showAdmins) {
+      query += ` AND u.isAdmin = 1`;
+    }
+    
+    query += ` GROUP BY u.id ORDER BY u.username`;
+
+    const users = await pool.promise().query(query, params);
+    
+    res.render('admin', {
+      users: users[0],
+      session: req.session,
+      theme: req.session.theme || 'light',
+      searchQuery: searchUsername,
+      showAdmins: showAdmins
+    });
+  } catch (error) {
+    console.error('Error searching users:', error);
+    res.status(500).send('Error searching users');
+  }
 });
 
 // Start the server

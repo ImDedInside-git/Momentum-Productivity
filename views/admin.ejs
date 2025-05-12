@@ -10,14 +10,27 @@
     :root {
       --primary-gradient: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
       --secondary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF000D 100%);
+      --success-gradient: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+      --danger-gradient: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
     }
 
     [data-theme="dark"] {
-      --bg-color: #1a1a1a;
-      --text-color: #ffffff;
-      --card-bg: #2d2d2d;
-      --border-color: #404040;
-      --sidebar-bg: #2d2d2d;
+      --bg-color: #0f172a;
+      --text-color: #e2e8f0;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --sidebar-bg: #1e293b;
+      --input-bg: #1e293b;
+      --input-border: #334155;
+      --input-text: #e2e8f0;
+      --btn-success-bg: #065f46;
+      --btn-success-hover: #064e3b;
+      --btn-danger-bg: #991b1b;
+      --btn-danger-hover: #7f1d1d;
+      --nav-hover-bg: #334155;
+      --nav-active-bg: #475569;
+      --nav-text: #e2e8f0;
+      --nav-hover-text: #ffffff;
     }
 
     [data-theme="light"] {
@@ -26,6 +39,17 @@
       --card-bg: #ffffff;
       --border-color: #e0e0e0;
       --sidebar-bg: #ffffff;
+      --input-bg: #ffffff;
+      --input-border: #e0e0e0;
+      --input-text: #333333;
+      --btn-success-bg: #28a745;
+      --btn-success-hover: #1e7e34;
+      --btn-danger-bg: #dc3545;
+      --btn-danger-hover: #bd2130;
+      --nav-hover-bg: #f8fafc;
+      --nav-active-bg: #e2e8f0;
+      --nav-text: #333333;
+      --nav-hover-text: #000000;
     }
 
     body {
@@ -78,22 +102,23 @@
     }
 
     .nav-link {
-      color: var(--text-color);
+      color: var(--nav-text);
       padding: 0.8rem 1rem;
       border-radius: 10px;
       margin-bottom: 0.5rem;
       transition: all 0.3s ease;
+      background-color: transparent;
     }
 
     .nav-link:hover {
-      background: var(--primary-gradient);
-      color: white;
+      background: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
       transform: translateX(5px);
     }
 
     .nav-link.active {
-      background: var(--primary-gradient);
-      color: white;
+      background: var(--nav-active-bg);
+      color: var(--nav-hover-text);
     }
 
     .nav-link i {
@@ -101,11 +126,20 @@
     }
 
     .nav-link.text-danger {
-      color: #dc3545 !important;
+      color: #ef4444 !important;
     }
 
     .nav-link.text-danger:hover {
-      background: #dc3545;
+      background: #991b1b;
+      color: white !important;
+    }
+
+    [data-theme="dark"] .nav-link.text-danger {
+      color: #f87171 !important;
+    }
+
+    [data-theme="dark"] .nav-link.text-danger:hover {
+      background: #7f1d1d;
       color: white !important;
     }
 
@@ -145,6 +179,39 @@
       color: white;
     }
 
+    /* Custom toggle switch styling */
+    .form-check-input {
+      width: 3em;
+      height: 1.5em;
+      margin-top: 0.25em;
+      vertical-align: top;
+      background-color: var(--card-bg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      border: 1px solid var(--border-color);
+      appearance: none;
+      color-adjust: exact;
+      transition: background-position .15s ease-in-out;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--danger-gradient);
+      border-color: transparent;
+    }
+
+    .form-check-input:focus {
+      border-color: var(--border-color);
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+
+    .form-check-label {
+      color: var(--text-color);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
     @media (max-width: 768px) {
       .dashboard-container {
         flex-direction: column;
@@ -162,6 +229,195 @@
         margin-left: 0;
         padding: 1rem;
       }
+    }
+
+    /* User type selector styling */
+    .user-type-selector {
+      margin: 0.5rem 0;
+    }
+
+    .user-type-selector .form-label {
+      color: var(--text-color);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .user-type-selector .btn-group {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .user-type-selector .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .user-type-selector .btn i {
+      font-size: 1.2rem;
+    }
+
+    .btn-check:checked + .btn-outline-success {
+      background: var(--btn-success-bg);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    }
+
+    .btn-check:checked + .btn-outline-danger {
+      background: var(--btn-danger-bg);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    }
+
+    .btn-outline-success {
+      color: var(--btn-success-bg);
+      border-color: var(--btn-success-bg);
+      background-color: rgba(40, 167, 69, 0.1);
+    }
+
+    .btn-outline-danger {
+      color: var(--btn-danger-bg);
+      border-color: var(--btn-danger-bg);
+      background-color: rgba(220, 53, 69, 0.1);
+    }
+
+    .btn-outline-success:hover {
+      background: var(--btn-success-hover);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    }
+
+    .btn-outline-danger:hover {
+      background: var(--btn-danger-hover);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    }
+
+    .btn-check:focus + .btn-outline-success,
+    .btn-check:focus + .btn-outline-danger {
+      box-shadow: none;
+    }
+
+    .btn-check:active + .btn-outline-success,
+    .btn-check:active + .btn-outline-danger {
+      transform: translateY(0);
+    }
+
+    /* Form styling */
+    .form-floating > .form-control {
+      background-color: var(--input-bg);
+      border-color: var(--input-border);
+      color: var(--input-text);
+      border-radius: 8px;
+      height: calc(3.5rem + 2px);
+      padding: 1rem 0.75rem;
+    }
+
+    .form-floating > .form-control:focus {
+      background-color: var(--input-bg);
+      border-color: #3b82f6;
+      color: var(--input-text);
+      box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    }
+
+    .form-floating > label {
+      padding: 1rem 0.75rem;
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+      color: var(--text-color);
+      opacity: 0.7;
+      transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+    }
+
+    .form-floating > .form-control:focus ~ label i,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label i {
+      color: #3b82f6;
+    }
+
+    /* Create user button styling */
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-gradient);
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(107, 115, 255, 0.2);
+    }
+
+    /* Card styling */
+    .dashboard-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--card-bg);
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Badge styling */
+    .badge {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    .badge.bg-primary {
+      background: var(--primary-gradient) !important;
+    }
+
+    .badge.bg-info {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
     }
   </style>
 </head>
@@ -198,13 +454,108 @@
     <div class="main-content">
       <h2 class="mb-4">User Management</h2>
       
+      <!-- Create User Account Form -->
+      <div class="dashboard-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0"><i class="bi bi-person-plus"></i> Create User Account</h3>
+          <span class="badge bg-primary">New User</span>
+        </div>
+        <div class="card-body">
+          <form action="/admin/create-user" method="POST">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" name="username" class="form-control" placeholder="Username" required>
+                  <label><i class="bi bi-person"></i> Username</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <label><i class="bi bi-key"></i> Password</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <label><i class="bi bi-envelope"></i> Email (Optional)</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="date" name="dob" class="form-control">
+                  <label><i class="bi bi-calendar"></i> Date of Birth (Optional)</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="user-type-selector">
+                  <label class="form-label d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-shield-lock"></i> Account Type
+                  </label>
+                  <div class="btn-group w-100" role="group">
+                    <input type="radio" class="btn-check" name="isAdmin" id="normalUser" value="false" checked>
+                    <label class="btn btn-outline-success" for="normalUser">
+                      <i class="bi bi-person"></i> Normal User
+                    </label>
+                    <input type="radio" class="btn-check" name="isAdmin" id="adminUser" value="true">
+                    <label class="btn btn-outline-danger" for="adminUser">
+                      <i class="bi bi-shield-lock"></i> Admin User
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary px-5">
+                  <i class="bi bi-person-plus"></i> Create User Account
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Search User Form -->
+      <div class="dashboard-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0"><i class="bi bi-search"></i> Search Users</h3>
+          <span class="badge bg-info">Filter</span>
+        </div>
+        <div class="card-body">
+          <form action="/admin/search-user" method="GET" class="row g-3">
+            <div class="col-md-8">
+              <div class="form-floating">
+                <input type="text" name="searchUsername" class="form-control" placeholder="Enter username to search" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+                <label><i class="bi bi-person"></i> Search by Username</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-check form-switch h-100 d-flex align-items-center justify-content-center">
+                <input class="form-check-input" type="checkbox" id="showAdmins" name="showAdmins" <%= typeof showAdmins !== 'undefined' && showAdmins ? 'checked' : '' %>>
+                <label class="form-check-label ms-2" for="showAdmins">Show Admins Only</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary h-100 w-100">
+                <i class="bi bi-search"></i> Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="user-list">
         <% users.forEach(function(user) { %>
           <div class="user-card">
             <div class="d-flex justify-content-between align-items-start">
               <div>
                 <div class="d-flex align-items-center mb-2">
-                  <h5 class="mb-0 me-2"><%= user.username %></h5>
+                  <form action="/admin/update-username" method="POST" class="d-flex align-items-center me-2">
+                    <input type="hidden" name="userId" value="<%= user.user_id %>">
+                    <input type="text" name="newUsername" value="<%= user.username %>" class="form-control form-control-sm me-2" style="width: 150px;">
+                    <button type="submit" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                  </form>
                   <span class="badge <%= user.last_activity ? 'badge-active' : 'badge-inactive' %>">
                     <%= user.last_activity ? 'Active' : 'Inactive' %>
                   </span>

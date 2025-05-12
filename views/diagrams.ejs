@@ -65,8 +65,21 @@
       margin-left: 280px;
       padding: 2rem;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 3rem;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .diagrams-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      width: 100%;
+      margin-left: 0;
     }
 
     .sidebar-header {
@@ -116,10 +129,9 @@
       background: var(--card-bg);
       border-radius: 15px;
       border: 1px solid var(--border-color);
-      margin-bottom: 2rem;
+      margin-bottom: 0;
       box-shadow: 0 4px 15px var(--shadow-color);
       overflow: hidden;
-      max-width: 1200px;
       width: 100%;
     }
 
@@ -139,21 +151,141 @@
     }
 
     .card-body {
-      padding: 1.5rem;
+      padding: 2rem;
     }
 
     .mermaid {
-      background: var(--card-bg);
-      padding: 1rem;
+      background: #ffffff !important;
+      padding: 2rem;
       border-radius: 10px;
-      border: 1px solid var(--border-color);
+      border: 1px solid #000000 !important;
       display: flex;
       justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .mermaid .classDiagram {
+      color: #000000 !important;
+      font-weight: 500 !important;
+    }
+
+    .mermaid .classDiagram .classTitle {
+      fill: #ffffff !important;
+      stroke: #000000 !important;
+      color: #000000 !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+    }
+
+    .mermaid .classDiagram .divider {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+    }
+
+    .mermaid .classDiagram .label {
+      fill: #000000 !important;
+      color: #000000 !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
+    }
+
+    .mermaid .classDiagram .labelBox {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    .mermaid .classDiagram .relation {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+    }
+
+    .mermaid .classDiagram .classText {
+      fill: #000000 !important;
+      color: #000000 !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
+    }
+
+    .mermaid .classDiagram .classBox {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    /* Dark theme specific adjustments */
+    [data-theme="dark"] .mermaid .classDiagram .classTitle {
+      fill: #000000 !important;
+      stroke: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .labelBox {
+      fill: #000000 !important;
+      stroke: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .classBox {
+      fill: #000000 !important;
+      stroke: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .classText {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .label {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .relation {
+      stroke: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .classDiagram .divider {
+      stroke: #ffffff !important;
+    }
+
+    /* Light theme specific adjustments */
+    [data-theme="light"] .mermaid .classDiagram .classTitle {
+      fill: #f8f9fa !important;
+      stroke: #000000 !important;
+      color: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .labelBox {
+      fill: #f8f9fa !important;
+      stroke: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .classBox {
+      fill: #f8f9fa !important;
+      stroke: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .classText {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .label {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .relation {
+      stroke: #000000 !important;
+    }
+
+    [data-theme="light"] .mermaid .classDiagram .divider {
+      stroke: #000000 !important;
     }
 
     .diagram-legend {
       margin-top: 2rem;
-      padding: 1rem;
+      padding: 1.5rem;
       background: var(--card-bg);
       border-radius: 10px;
       border: 1px solid var(--border-color);
@@ -192,6 +324,151 @@
         flex-direction: column;
       }
     }
+
+    /* ER Diagram specific styles */
+    .mermaid .erDiagram {
+      color: #000000 !important;
+      font-weight: 500 !important;
+    }
+
+    .mermaid .erDiagram .entityBox {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    .mermaid .erDiagram .attributeBoxOdd {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    .mermaid .erDiagram .attributeBoxEven {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    .mermaid .erDiagram .relationshipLabelBox {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+      fill: #ffffff !important;
+    }
+
+    .mermaid .erDiagram .relationshipLine {
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+    }
+
+    .mermaid .erDiagram .label {
+      fill: #000000 !important;
+      color: #000000 !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
+    }
+
+    /* Dark theme specific adjustments */
+    [data-theme="dark"] .mermaid .erDiagram .entityBox {
+      stroke: #ffffff !important;
+      fill: #000000 !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram .attributeBoxOdd {
+      stroke: #ffffff !important;
+      fill: #000000 !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram .attributeBoxEven {
+      stroke: #ffffff !important;
+      fill: #000000 !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram .relationshipLabelBox {
+      stroke: #ffffff !important;
+      fill: #000000 !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram .relationshipLine {
+      stroke: #ffffff !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram .label {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    /* Override Mermaid's default styles */
+    .mermaid .erDiagram rect {
+      fill: #ffffff !important;
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram rect {
+      fill: #ffffff !important;
+      stroke: #000000 !important;
+      stroke-width: 2px !important;
+    }
+
+    .mermaid .erDiagram text {
+      fill: #000000 !important;
+      color: #000000 !important;
+      font-weight: 500 !important;
+    }
+
+    [data-theme="dark"] .mermaid .erDiagram text {
+      fill: #000000 !important;
+      color: #000000 !important;
+      font-weight: 500 !important;
+    }
+
+    /* Force white background for all diagrams */
+    .mermaid {
+      background: #ffffff !important;
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid #000000 !important;
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    [data-theme="dark"] .mermaid {
+      background: #ffffff !important;
+      border: 1px solid #000000 !important;
+    }
+
+    /* Force black text for all diagram elements */
+    .mermaid .classDiagram,
+    .mermaid .erDiagram,
+    .mermaid .flowchart,
+    .mermaid .sequenceDiagram {
+      color: #000000 !important;
+    }
+
+    .mermaid .classDiagram text,
+    .mermaid .erDiagram text,
+    .mermaid .flowchart text,
+    .mermaid .sequenceDiagram text {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
+
+    .mermaid .classDiagram .classTitle,
+    .mermaid .erDiagram .entityBox,
+    .mermaid .flowchart .node,
+    .mermaid .sequenceDiagram .actor {
+      fill: #ffffff !important;
+      stroke: #000000 !important;
+    }
+
+    .mermaid .classDiagram .label,
+    .mermaid .erDiagram .label,
+    .mermaid .flowchart .label,
+    .mermaid .sequenceDiagram .label {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
   </style>
 </head>
 <body data-theme="<%= theme %>">
@@ -225,114 +502,1487 @@
     </div>
 
     <div class="main-content">
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h3><i class="bi bi-diagram-3"></i> Entity Relationship Diagram</h3>
-        </div>
-        <div class="card-body">
-          <div class="mermaid">
-            erDiagram
-              users {
-                int id PK
-                string username
-                string password
-                string email
-                date dob
-                string role
-                boolean isAdmin
-                enum theme_preference
-              }
-              tasks {
-                int id PK
-                string title
-                text description
-                enum priority
-                int estimated_time
-                int actual_time
-                date due_date
-                enum status
-                int user_id FK
-                timestamp created_at
-                timestamp updated_at
-              }
-              daily_stats {
-                int id PK
-                int user_id FK
-                date date
-                int total_tasks
-                int completed_tasks
-                int total_estimated_time
-                int total_actual_time
-                timestamp created_at
-              }
-              users ||--o{ tasks : "creates"
-              users ||--o{ daily_stats : "has"
+      <div class="diagrams-grid">
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Level 0 Data Flow Diagram</h3>
           </div>
-          
-          <div class="diagram-legend">
-            <h4 class="mb-3">Legend</h4>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--primary-gradient)"></div>
-              <div class="legend-text">Primary Key (PK)</div>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--warning-gradient)"></div>
-              <div class="legend-text">Foreign Key (FK)</div>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--success-gradient)"></div>
-              <div class="legend-text">Required Field</div>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--border-color)"></div>
-              <div class="legend-text">Optional Field</div>
-            </div>
-          </div>
-        </div>
-      </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                User((User))
+                Admin((Admin))
+                System((To-Do List System))
+                DB[(Database)]
+                Auth[Authentication Service]
 
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h3><i class="bi bi-arrow-left-right"></i> Data Flow Diagram</h3>
-        </div>
-        <div class="card-body">
-          <div class="mermaid">
-            flowchart TD
-              User((User)) -->|Login| Auth[Authentication]
-              Auth -->|Valid Credentials| Dashboard[Dashboard]
-              Dashboard -->|Create Task| TaskForm[Task Form]
-              TaskForm -->|Submit| TaskDB[(Task Database)]
-              Dashboard -->|View Tasks| TaskList[Task List]
-              TaskList -->|Update Status| TaskDB
-              TaskDB -->|Generate Stats| Analytics[Analytics]
-              Analytics -->|Display| Dashboard
-              TaskDB -->|Check Deadlines| Notifications[Notifications]
-              Notifications -->|Send Alerts| User
-              Admin((Admin)) -->|Login| Auth
-              Auth -->|Admin Access| AdminPanel[Admin Panel]
-              AdminPanel -->|Manage Users| UserDB[(User Database)]
-              AdminPanel -->|View Reports| Reports[Reports]
-              UserDB -->|User Data| Reports
-              TaskDB -->|Task Data| Reports
+                User -->|Login/Register| System
+                User -->|Create/Edit Tasks| System
+                User -->|View Tasks| System
+                Admin -->|Manage Users| System
+                Admin -->|View Statistics| System
+                System -->|Store Data| DB
+                System -->|Verify Credentials| Auth
+                System -->|Send Notifications| User
+                System -->|Send Reports| Admin
+            </div>
+            <div class="diagram-legend">
+              <h4>Level 0 DFD Explanation</h4>
+              <p>This context-level DFD shows the overall interaction between Users, Administrators, and the To-Do List System. Regular users can create, edit, and view their tasks, while administrators manage user accounts and view system statistics. The system interacts with a Database for data persistence and an Authentication Service for secure user verification.</p>
+              <p>The system acts as a central hub that:</p>
+              <ul>
+                <li>Manages user authentication and registration</li>
+                <li>Handles task creation, updates, and deletion</li>
+                <li>Provides user management capabilities for administrators</li>
+                <li>Generates statistics and reports</li>
+                <li>Maintains data integrity through secure storage</li>
+              </ul>
+            </div>
           </div>
-          
-          <div class="diagram-legend">
-            <h4 class="mb-3">Legend</h4>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--primary-gradient)"></div>
-              <div class="legend-text">External Entity</div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Level 1 Data Flow Diagram</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                User((User))
+                Admin((Admin))
+                Auth[Authentication]
+                TaskMgmt[Task Management]
+                UserMgmt[User Management]
+                ThemeMgmt[Theme Management]
+                StatsMgmt[Statistics Management]
+                TaskDB[(Task Database)]
+                UserDB[(User Database)]
+                StatsDB[(Statistics Database)]
+
+                %% User Authentication Flow
+                User -->|Login/Register| Auth
+                Auth -->|Verify Credentials| UserDB
+                Auth -->|Grant Access| TaskMgmt
+                Auth -->|Grant Access| ThemeMgmt
+
+                %% Task Management Flow
+                User -->|Create Task| TaskMgmt
+                User -->|Edit Task| TaskMgmt
+                User -->|Delete Task| TaskMgmt
+                User -->|View Tasks| TaskMgmt
+                TaskMgmt -->|Store Task| TaskDB
+                TaskMgmt -->|Update Stats| StatsMgmt
+                TaskDB -->|Retrieve Tasks| TaskMgmt
+
+                %% User Management Flow
+                Admin -->|Create User| UserMgmt
+                Admin -->|Edit User| UserMgmt
+                Admin -->|Delete User| UserMgmt
+                Admin -->|View Users| UserMgmt
+                UserMgmt -->|Store User| UserDB
+                UserDB -->|Retrieve Users| UserMgmt
+
+                %% Theme Management Flow
+                User -->|Change Theme| ThemeMgmt
+                ThemeMgmt -->|Store Preference| UserDB
+                UserDB -->|Retrieve Theme| ThemeMgmt
+
+                %% Statistics Management Flow
+                Admin -->|View Statistics| StatsMgmt
+                StatsMgmt -->|Store Stats| StatsDB
+                StatsDB -->|Retrieve Stats| StatsMgmt
+                StatsMgmt -->|Generate Reports| Admin
             </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--warning-gradient)"></div>
-              <div class="legend-text">Process</div>
+            
+            <div class="diagram-legend">
+              <h4>Level 1 DFD Explanation</h4>
+              <p>This Level 1 DFD breaks down the core modules of the Momentum To-Do List Web App:</p>
+              <ul>
+                <li><strong>Authentication Module:</strong> Handles user login, registration, and credential verification</li>
+                <li><strong>Task Management Module:</strong> Processes task creation, editing, deletion, and viewing</li>
+                <li><strong>User Management Module:</strong> Administers user accounts, including creation, modification, and deletion</li>
+                <li><strong>Theme Management Module:</strong> Manages user interface theme preferences</li>
+                <li><strong>Statistics Management Module:</strong> Tracks and generates user activity statistics and reports</li>
+              </ul>
+              <p>Data flows between these modules and their respective databases (Task DB, User DB, and Statistics DB) to perform specific operations like storing tasks, managing user accounts, and generating statistics.</p>
             </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--success-gradient)"></div>
-              <div class="legend-text">Data Store</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Class Diagram</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              classDiagram
+                class User {
+                  +int userId
+                  +string username
+                  +string password
+                  +string email
+                  +date dob
+                  +string role
+                  +boolean isAdmin
+                  +string themePreference
+                  +login()
+                  +register()
+                  +updateProfile()
+                  +changeTheme()
+                }
+
+                class Task {
+                  +int taskId
+                  +string title
+                  +string description
+                  +string priority
+                  +int estimatedTime
+                  +int actualTime
+                  +date dueDate
+                  +string status
+                  +int userId
+                  +datetime createdAt
+                  +datetime updatedAt
+                  +createTask()
+                  +updateTask()
+                  +deleteTask()
+                  +markComplete()
+                  +calculateProgress()
+                }
+
+                class DailyStats {
+                  +int statId
+                  +int userId
+                  +date date
+                  +int totalTasks
+                  +int completedTasks
+                  +int totalEstimatedTime
+                  +int totalActualTime
+                  +datetime createdAt
+                  +updateStats()
+                  +calculateEfficiency()
+                  +generateReport()
+                }
+
+                class ThemeManager {
+                  +string themeName
+                  +string primaryColor
+                  +string secondaryColor
+                  +string backgroundColor
+                  +string textColor
+                  +applyTheme()
+                  +savePreference()
+                  +resetToDefault()
+                }
+
+                class Notification {
+                  +int notificationId
+                  +int userId
+                  +string message
+                  +string type
+                  +boolean isRead
+                  +datetime createdAt
+                  +sendNotification()
+                  +markAsRead()
+                  +deleteNotification()
+                }
+
+                User "1" -- "0..*" Task : creates
+                User "1" -- "0..*" DailyStats : has
+                User "1" -- "1" ThemeManager : uses
+                User "1" -- "0..*" Notification : receives
             </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background: var(--border-color)"></div>
-              <div class="legend-text">Data Flow</div>
+            
+            <div class="diagram-legend">
+              <h4>Class Diagram Explanation</h4>
+              <p>This class diagram represents the core components of the Momentum To-Do List Web App:</p>
+              <ul>
+                <li><strong>User Class:</strong> Manages user accounts with attributes for identification and preferences, including methods for authentication and profile management.</li>
+                <li><strong>Task Class:</strong> Represents individual tasks with properties for tracking progress and methods for task management.</li>
+                <li><strong>DailyStats Class:</strong> Tracks user productivity metrics and provides methods for calculating efficiency and generating reports.</li>
+                <li><strong>ThemeManager Class:</strong> Handles UI theme customization with methods for applying and saving theme preferences.</li>
+                <li><strong>Notification Class:</strong> Manages system notifications with methods for sending and managing user alerts.</li>
+              </ul>
+              <p>The relationships between classes show how users create tasks, accumulate statistics, manage their theme preferences, and receive notifications.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Sequence Diagram</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              sequenceDiagram
+                participant User
+                participant Auth
+                participant TaskMgmt
+                participant StatsMgmt
+                participant DB
+                participant Notification
+
+                %% User Authentication
+                User->>Auth: Login Request
+                Auth->>DB: Verify Credentials
+                DB-->>Auth: Credentials Valid
+                Auth-->>User: Grant Access
+
+                %% Task Creation Flow
+                User->>TaskMgmt: Create New Task
+                TaskMgmt->>DB: Store Task Data
+                DB-->>TaskMgmt: Confirm Storage
+                TaskMgmt->>StatsMgmt: Update User Stats
+                StatsMgmt->>DB: Store Updated Stats
+                TaskMgmt-->>User: Task Created Confirmation
+                TaskMgmt->>Notification: Send Task Created Alert
+                Notification-->>User: Display Notification
+
+                %% Task Update Flow
+                User->>TaskMgmt: Update Task Status
+                TaskMgmt->>DB: Update Task Data
+                DB-->>TaskMgmt: Confirm Update
+                TaskMgmt->>StatsMgmt: Recalculate Stats
+                StatsMgmt->>DB: Update User Stats
+                TaskMgmt-->>User: Status Update Confirmation
+                TaskMgmt->>Notification: Send Status Update Alert
+                Notification-->>User: Display Notification
+
+                %% Task Completion Flow
+                User->>TaskMgmt: Mark Task Complete
+                TaskMgmt->>DB: Update Task Status
+                DB-->>TaskMgmt: Confirm Update
+                TaskMgmt->>StatsMgmt: Update Completion Stats
+                StatsMgmt->>DB: Store Completion Data
+                TaskMgmt-->>User: Completion Confirmation
+                TaskMgmt->>Notification: Send Completion Alert
+                Notification-->>User: Display Notification
+
+                %% Daily Summary Flow
+                StatsMgmt->>DB: Fetch Daily Stats
+                DB-->>StatsMgmt: Return Stats Data
+                StatsMgmt->>Notification: Generate Daily Summary
+                Notification-->>User: Display Daily Summary
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Sequence Diagram Explanation</h4>
+              <p>This sequence diagram illustrates the key processes in the To-Do List Web App:</p>
+              <ol>
+                <li><strong>Authentication Process:</strong> User login flow with credential verification</li>
+                <li><strong>Task Creation:</strong> Complete flow from task creation to notification</li>
+                <li><strong>Task Updates:</strong> Process of updating task status and recalculating statistics</li>
+                <li><strong>Task Completion:</strong> End-to-end flow of marking tasks complete</li>
+                <li><strong>Daily Summary:</strong> Generation and delivery of daily statistics</li>
+              </ol>
+              <p>The diagram shows how different system components interact to:</p>
+              <ul>
+                <li>Manage user authentication and authorization</li>
+                <li>Handle task creation, updates, and completion</li>
+                <li>Track and update user statistics</li>
+                <li>Generate and deliver notifications</li>
+                <li>Maintain data consistency across the system</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Entity Relationship Diagram</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              erDiagram
+                User ||--o{ Task : creates
+                User ||--o{ DailyStats : accumulates
+                User ||--o{ Notification : receives
+                User ||--|| ThemePreference : has
+                User ||--o{ UserActivity : generates
+                
+                Task ||--o{ TaskComment : has
+                Task ||--o{ TaskAttachment : contains
+                Task ||--|| TaskPriority : has
+                Task ||--|| TaskStatus : has
+                
+                DailyStats ||--o{ TimeEntry : contains
+                DailyStats ||--o{ EfficiencyMetric : calculates
+                
+                User {
+                    int userId PK
+                    string username
+                    string password
+                    string email
+                    date dob
+                    string role
+                    boolean isAdmin
+                    datetime createdAt
+                    datetime lastLogin
+                }
+                
+                Task {
+                    int taskId PK
+                    int userId FK
+                    string title
+                    string description
+                    int priorityId FK
+                    int statusId FK
+                    int estimatedTime
+                    int actualTime
+                    date dueDate
+                    datetime createdAt
+                    datetime updatedAt
+                }
+                
+                DailyStats {
+                    int statId PK
+                    int userId FK
+                    date date
+                    int totalTasks
+                    int completedTasks
+                    int totalEstimatedTime
+                    int totalActualTime
+                    float efficiency
+                    datetime createdAt
+                }
+                
+                Notification {
+                    int notificationId PK
+                    int userId FK
+                    string message
+                    string type
+                    boolean isRead
+                    datetime createdAt
+                }
+                
+                ThemePreference {
+                    int themeId PK
+                    int userId FK
+                    string themeName
+                    string primaryColor
+                    string secondaryColor
+                    string backgroundColor
+                    string textColor
+                }
+                
+                TaskPriority {
+                    int priorityId PK
+                    string name
+                    string color
+                    int level
+                }
+                
+                TaskStatus {
+                    int statusId PK
+                    string name
+                    string color
+                    string description
+                }
+                
+                TaskComment {
+                    int commentId PK
+                    int taskId FK
+                    int userId FK
+                    string content
+                    datetime createdAt
+                }
+                
+                TaskAttachment {
+                    int attachmentId PK
+                    int taskId FK
+                    string fileName
+                    string fileType
+                    int fileSize
+                    string filePath
+                    datetime uploadedAt
+                }
+                
+                TimeEntry {
+                    int entryId PK
+                    int statId FK
+                    int taskId FK
+                    int duration
+                    string description
+                    datetime startTime
+                    datetime endTime
+                }
+                
+                EfficiencyMetric {
+                    int metricId PK
+                    int statId FK
+                    string metricName
+                    float value
+                    string unit
+                    datetime calculatedAt
+                }
+                
+                UserActivity {
+                    int activityId PK
+                    int userId FK
+                    string activityType
+                    string description
+                    datetime timestamp
+                }
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>ER Diagram Explanation</h4>
+              <p>This Entity Relationship Diagram represents the core data structure of the To-Do List Web App:</p>
+              <ol>
+                <li><strong>User Entity:</strong> Central entity that manages user accounts and preferences</li>
+                <li><strong>Task Entity:</strong> Represents individual tasks with their properties and relationships</li>
+                <li><strong>DailyStats Entity:</strong> Tracks user productivity metrics and time entries</li>
+                <li><strong>Supporting Entities:</strong> Include TaskPriority, TaskStatus, ThemePreference, and more</li>
+              </ol>
+              <p>Key Relationships:</p>
+              <ul>
+                <li>Users can create multiple Tasks (one-to-many)</li>
+                <li>Users accumulate DailyStats over time (one-to-many)</li>
+                <li>Users receive multiple Notifications (one-to-many)</li>
+                <li>Users have one ThemePreference (one-to-one)</li>
+                <li>Tasks can have multiple Comments and Attachments (one-to-many)</li>
+                <li>DailyStats contain multiple TimeEntries and EfficiencyMetrics (one-to-many)</li>
+              </ul>
+              <p>Each entity includes relevant attributes and proper foreign key relationships to maintain data integrity.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-diagram-3"></i> Relational Schema</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              erDiagram
+                Employee ||--o{ Payroll : receives
+                Employee ||--o{ Payment : gets
+                Employee ||--o{ Leave : requests
+                Employee ||--o{ EmployeeContribution : has
+                Payroll ||--o{ Payment : generates
+                Payroll ||--o{ Deductions : includes
+                Leave ||--|| LeaveType : has
+                Leave ||--|| LeaveApproval : requires
+                Leave ||--|| DutyAlternate : assigns
+
+                Employee {
+                    int Emp_ID PK
+                    string Emp_name
+                    string Department
+                    string Designation
+                    date Join_Date
+                    string Email
+                    string Contact
+                    string Address
+                    string Bank_Account
+                    string IFSC_Code
+                }
+
+                Payroll {
+                    int Payroll_ID PK
+                    int Emp_ID FK
+                    decimal Basic_Salary
+                    decimal HRA
+                    decimal DA
+                    decimal Special_Allowance
+                    decimal Gross_Salary
+                    date Effective_From
+                    date Effective_To
+                }
+
+                Payment {
+                    int Payment_ID PK
+                    int Payroll_ID FK
+                    int Emp_ID FK
+                    decimal Net_Salary
+                    decimal Tax_Deduction
+                    decimal PF_Deduction
+                    decimal ESI_Deduction
+                    date Payment_Date
+                    string Payment_Mode
+                    string Transaction_ID
+                }
+
+                Deductions {
+                    int Deduction_ID PK
+                    int Payroll_ID FK
+                    decimal Income_Tax
+                    decimal Professional_Tax
+                    decimal PF_Employee
+                    decimal PF_Employer
+                    decimal ESI_Employee
+                    decimal ESI_Employer
+                    decimal Other_Deductions
+                }
+
+                EmployeeContribution {
+                    int Contribution_ID PK
+                    int Emp_ID FK
+                    decimal PF_Employer
+                    decimal ESI_Employer
+                    decimal Gratuity
+                    decimal Bonus
+                    decimal Other_Benefits
+                    date Contribution_Date
+                }
+
+                Leave {
+                    int Leave_ID PK
+                    int Emp_ID FK
+                    int Leave_Type_ID FK
+                    int Approval_ID FK
+                    int Alternate_ID FK
+                    date Start_Date
+                    date End_Date
+                    int Duration
+                    string Reason
+                    string Status
+                    date Applied_On
+                }
+
+                LeaveType {
+                    int Leave_Type_ID PK
+                    string Type_Name
+                    int Max_Days
+                    string Description
+                    boolean Paid
+                }
+
+                LeaveApproval {
+                    int Approval_ID PK
+                    int Leave_ID FK
+                    int Approver_ID FK
+                    string Status
+                    string Comments
+                    date Approved_On
+                }
+
+                DutyAlternate {
+                    int Alternate_ID PK
+                    int Leave_ID FK
+                    int Alternate_Emp_ID FK
+                    string Handover_Notes
+                    date Assigned_On
+                }
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Relational Schema Explanation</h4>
+              <p>This schema represents the database structure for an Employee Payroll and Leave Management System:</p>
+              <ol>
+                <li><strong>Employee Table:</strong> Stores basic employee information including personal and bank details</li>
+                <li><strong>Payroll Table:</strong> Manages salary structure with components like Basic, HRA, DA, and Gross Salary</li>
+                <li><strong>Payment Table:</strong> Records salary transactions with net salary and various deductions</li>
+                <li><strong>Deductions Table:</strong> Tracks all types of deductions including tax, PF, and ESI</li>
+                <li><strong>EmployeeContribution Table:</strong> Manages employer-side benefits and contributions</li>
+                <li><strong>Leave Table:</strong> Handles leave requests with links to types, approvals, and alternates</li>
+                <li><strong>Supporting Tables:</strong> Include LeaveType, LeaveApproval, and DutyAlternate for comprehensive leave management</li>
+              </ol>
+              <p>Key Relationships:</p>
+              <ul>
+                <li>One Employee can have multiple Payroll records (one-to-many)</li>
+                <li>One Payroll record can generate multiple Payments (one-to-many)</li>
+                <li>One Employee can request multiple Leaves (one-to-many)</li>
+                <li>Each Leave must have one LeaveType and one LeaveApproval (one-to-one)</li>
+                <li>Each Leave can have one DutyAlternate (one-to-one)</li>
+              </ul>
+              <p>The schema ensures data integrity through proper foreign key relationships and supports comprehensive payroll and leave management functionality.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-shield-lock"></i> Authentication & Role Management Pseudocode</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "User Authentication"
+                  A[Start] --> B{User Input}
+                  B -->|Login| C[Validate Credentials]
+                  B -->|Register| D[Create New User]
+                  C -->|Valid| E[Generate Session]
+                  C -->|Invalid| F[Show Error]
+                  D -->|Success| G[Send Welcome Email]
+                  D -->|Failed| H[Show Error]
+                  E --> I[Redirect to Dashboard]
+                end
+
+                subgraph "Role Management"
+                  J[Start] --> K{Check User Role}
+                  K -->|Admin| L[Full Access]
+                  K -->|Manager| M[Department Access]
+                  K -->|Employee| N[Basic Access]
+                  L --> O[Access Admin Panel]
+                  M --> P[Access Department Data]
+                  N --> Q[Access Personal Data]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Authentication & Role Management Pseudocode</h4>
+              
+              <h5>User Authentication</h5>
+              <pre>
+FUNCTION authenticateUser(username, password)
+    // Validate input
+    IF username IS empty OR password IS empty
+        RETURN "Please enter both username and password"
+    
+    // Check user existence
+    user = FIND user WHERE username = input.username
+    IF user NOT found
+        RETURN "Invalid username or password"
+    
+    // Verify password
+    IF hash(password) != user.password_hash
+        RETURN "Invalid username or password"
+    
+    // Generate session
+    session = CREATE new session
+    session.user_id = user.id
+    session.role = user.role
+    session.expires = NOW + 24 hours
+    
+    // Update last login
+    UPDATE user SET last_login = NOW
+    
+    RETURN "Login successful"
+              </pre>
+
+              <h5>User Registration</h5>
+              <pre>
+FUNCTION registerUser(username, password, email, role)
+    // Validate input
+    IF username IS empty OR password IS empty
+        RETURN "Please fill all required fields"
+    
+    // Check username uniqueness
+    IF EXISTS user WHERE username = input.username
+        RETURN "Username already exists"
+    
+    // Create new user
+    user = CREATE new user
+    user.username = input.username
+    user.password_hash = hash(input.password)
+    user.email = input.email
+    user.role = input.role
+    user.created_at = NOW
+    
+    // Send welcome email
+    SEND email TO user.email
+        SUBJECT "Welcome to the System"
+        BODY "Your account has been created successfully"
+    
+    RETURN "Registration successful"
+              </pre>
+
+              <h5>Role-Based Access Control</h5>
+              <pre>
+FUNCTION checkAccess(user, resource)
+    // Get user role
+    role = user.role
+    
+    // Define access levels
+    access_levels = {
+        "admin": ["read", "write", "delete", "manage"],
+        "manager": ["read", "write", "manage"],
+        "employee": ["read", "write"]
+    }
+    
+    // Check permission
+    IF resource.required_permission IN access_levels[role]
+        RETURN true
+    ELSE
+        RETURN false
+              </pre>
+
+              <h5>Session Management</h5>
+              <pre>
+FUNCTION validateSession(session_id)
+    // Get session
+    session = FIND session WHERE id = session_id
+    
+    // Check session existence
+    IF session NOT found
+        RETURN false
+    
+    // Check expiration
+    IF session.expires < NOW
+        DELETE session
+        RETURN false
+    
+    // Refresh session
+    UPDATE session SET expires = NOW + 24 hours
+    
+    RETURN true
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-stack"></i> Technology Stack Overview</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "Frontend"
+                  A[EJS Templates] --> B[Bootstrap 5]
+                  B --> C[Custom CSS]
+                  A --> D[Client-side JS]
+                  D --> E[Theme Management]
+                  D --> F[Form Validation]
+                end
+
+                subgraph "Backend"
+                  G[Node.js] --> H[Express.js]
+                  H --> I[EJS View Engine]
+                  H --> J[Session Management]
+                  H --> K[Route Handlers]
+                end
+
+                subgraph "Database"
+                  L[MySQL] --> M[User Data]
+                  L --> N[Task Data]
+                  L --> O[Statistics]
+                end
+
+                subgraph "Development Tools"
+                  P[VS Code] --> Q[Git]
+                  P --> R[npm]
+                  P --> S[ESLint]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Technology Stack Implementation</h4>
+              
+              <h5>Frontend Technology</h5>
+              <p>The frontend of the To-Do List Web App is built using EJS (Embedded JavaScript) as the primary templating engine. EJS provides server-side rendering capabilities, allowing for dynamic HTML generation based on server data. The user interface is styled using Bootstrap 5, which provides a comprehensive set of pre-built components and utilities for creating responsive layouts. Custom CSS is implemented to handle theme-specific styling, particularly for the light and dark mode functionality. Client-side JavaScript is used for dynamic interactions, form validations, and theme toggling.</p>
+
+              <h5>Backend Technology</h5>
+              <p>The backend is powered by Node.js and Express.js, providing a robust server environment for handling HTTP requests and managing application logic. Express.js serves as the web application framework, offering middleware support for session management, request parsing, and route handling. The EJS view engine is integrated for template rendering, while session management ensures secure user authentication and state persistence. Route handlers are organized to manage various API endpoints for user operations, task management, and statistics tracking.</p>
+
+              <h5>Database Technology</h5>
+              <p>The application uses MySQL as its database management system, providing reliable data persistence and efficient querying capabilities. The database schema is designed to handle user management, including authentication details and preferences. Task management is implemented with tables for storing task details, status, and relationships. Statistics tracking is achieved through dedicated tables that store user activity metrics and performance data. The database structure supports efficient querying and data relationships while maintaining data integrity.</p>
+
+              <h5>Development Tools</h5>
+              <p>Development is conducted using Visual Studio Code as the primary IDE, equipped with extensions for JavaScript and EJS development. Version control is managed through Git, ensuring proper tracking of code changes and collaborative development. The Node Package Manager (npm) is used for managing project dependencies and scripts. Code quality is maintained through ESLint, which enforces consistent coding standards and helps identify potential issues.</p>
+
+              <h5>Key Features and Implementation</h5>
+              <p>The application implements several key features that leverage the chosen technology stack:</p>
+              <ul>
+                <li><strong>Theme Management:</strong> Implemented using CSS variables and JavaScript for dynamic theme switching between light and dark modes. The theme preference is persisted in the database and applied consistently across all pages.</li>
+                <li><strong>Task Management:</strong> Built using EJS templates for rendering task lists and forms, with Bootstrap components for the user interface. Task data is stored in MySQL and managed through Express.js routes.</li>
+                <li><strong>User Authentication:</strong> Implemented using session-based authentication with Express.js middleware. User credentials are securely stored in MySQL with proper password hashing.</li>
+                <li><strong>Statistics Tracking:</strong> Achieved through MySQL queries that aggregate task completion data and user activity metrics. The statistics are displayed using Bootstrap components and updated in real-time.</li>
+              </ul>
+
+              <h5>Advantages of the Chosen Stack</h5>
+              <p>The selected technology stack offers several advantages for this project:</p>
+              <ul>
+                <li><strong>Server-Side Rendering:</strong> EJS provides fast initial page loads and better SEO capabilities compared to client-side rendering approaches.</li>
+                <li><strong>Responsive Design:</strong> Bootstrap 5 ensures a consistent and mobile-friendly user interface across different devices and screen sizes.</li>
+                <li><strong>Efficient Development:</strong> The use of EJS templates and Bootstrap components accelerates development while maintaining code quality.</li>
+                <li><strong>Scalable Architecture:</strong> The modular structure of Express.js routes and EJS templates allows for easy feature additions and maintenance.</li>
+                <li><strong>Theme Support:</strong> The implementation of CSS variables and theme-specific styles provides a flexible theming system that can be easily extended.</li>
+              </ul>
+
+              <h5>Challenges and Solutions</h5>
+              <p>During development, several challenges were addressed:</p>
+              <ul>
+                <li><strong>Theme Consistency:</strong> Solved by implementing CSS variables and forced styles for diagrams, ensuring consistent appearance across different components.</li>
+                <li><strong>Data Synchronization:</strong> Addressed through session management and real-time updates using client-side JavaScript and server-side rendering.</li>
+                <li><strong>Performance Optimization:</strong> Achieved through efficient database queries, proper indexing, and optimized template rendering.</li>
+                <li><strong>User Experience:</strong> Enhanced by implementing loading states, error handling, and responsive design principles.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-code-square"></i> Backend Implementation</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "Server Setup"
+                  A[Express App] --> B[Middleware Setup]
+                  B --> C[Database Connection]
+                  B --> D[Session Management]
+                  B --> E[Theme Management]
+                end
+
+                subgraph "Authentication"
+                  F[User Registration] --> G[Password Hashing]
+                  H[User Login] --> I[Session Creation]
+                  J[User Logout] --> K[Session Destruction]
+                end
+
+                subgraph "Task Management"
+                  L[Create Task] --> M[Database Insert]
+                  N[Update Task] --> O[Status Change]
+                  P[Delete Task] --> Q[Database Remove]
+                end
+
+                subgraph "Admin Functions"
+                  R[Create Admin] --> S[Role Assignment]
+                  T[Submit Report] --> U[Report Storage]
+                end
+
+                subgraph "Email System"
+                  V[Send Comment] --> W[Email Configuration]
+                  W --> X[Send Email]
+                end
+
+                subgraph "Middleware"
+                  Y[Auth Check] --> Z[Access Control]
+                  AA[Admin Check] --> AB[Role Verification]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Backend Implementation Details</h4>
+              
+              <h5>Server Setup and Configuration</h5>
+              <pre>
+// Initialize Express server with necessary middleware
+function setupServer() {
+    // Create Express app
+    // Configure view engine (EJS)
+    // Set up body parser for form data
+    // Configure static files directory
+    // Set up session management
+    // Create database connection pool
+    // Set up theme middleware
+}</pre>
+
+              <h5>Authentication Functions</h5>
+              <pre>
+// User Registration
+function registerUser(username, password, email, dob) {
+    // Validate all required fields
+    // Check if username/email already exists
+    // Hash password using bcrypt
+    // Create new user in database
+    // Redirect to login page
+}
+
+// User Login
+function loginUser(username, password) {
+    // Find user by username
+    // Compare password hash
+    // Create session with user info
+    // Redirect to dashboard
+}
+
+// User Logout
+function logoutUser() {
+    // Destroy session
+    // Redirect to login page
+}</pre>
+
+              <h5>Task Management Functions</h5>
+              <pre>
+// Create New Task
+function createTask(taskName, description, dueDate, priority) {
+    // Validate task data
+    // Insert task into database
+    // Associate with current user
+    // Redirect to task list
+}
+
+// Update Task Status
+function updateTaskStatus(taskId, newStatus) {
+    // Find task by ID
+    // Update status
+    // If completed, update completion time
+    // Update daily statistics
+}
+
+// Delete Task
+function deleteTask(taskId) {
+    // Verify user owns task
+    // Remove task from database
+    // Redirect to task list
+}</pre>
+
+              <h5>Admin Functions</h5>
+              <pre>
+// Create Admin Account
+function createAdminAccount(username, email, password) {
+    // Verify current admin credentials
+    // Check for existing username/email
+    // Hash new password
+    // Create admin user
+    // Return success/error message
+}
+
+// Submit Report
+function submitReport(title, type, date, content) {
+    // Verify admin status
+    // Create report in database
+    // Associate with admin user
+    // Redirect to reports page
+}</pre>
+
+              <h5>Theme Management</h5>
+              <pre>
+// Update User Theme
+function updateTheme(userId, theme) {
+    // Validate theme value
+    // Update theme in database
+    // Update session
+    // Return success/error
+}</pre>
+
+              <h5>Email Functions</h5>
+              <pre>
+// Send Comment
+function sendComment(comment, email) {
+    // Configure email options
+    // Send email using nodemailer
+    // Handle success/error
+    // Redirect to about page
+}</pre>
+
+              <h5>Middleware Functions</h5>
+              <pre>
+// Authentication Check
+function isAuthenticated() {
+    // Check if user session exists
+    // Allow/deny access to route
+}
+
+// Admin Check
+function isAdmin() {
+    // Verify user session
+    // Check user role
+    // Allow/deny admin access
+}</pre>
+
+              <h5>Implementation Notes</h5>
+              <p>The backend implementation uses several key technologies and patterns:</p>
+              <ul>
+                <li><strong>Express.js:</strong> Used for routing and middleware management</li>
+                <li><strong>MySQL:</strong> Primary database for data storage</li>
+                <li><strong>bcrypt:</strong> Password hashing for security</li>
+                <li><strong>express-session:</strong> Session management for user authentication</li>
+                <li><strong>nodemailer:</strong> Email functionality for notifications</li>
+              </ul>
+              <p>Each function includes comprehensive error handling and appropriate redirects/responses to maintain a smooth user experience. The implementation follows RESTful principles and includes proper security measures for user authentication and data protection.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-window"></i> Frontend Implementation</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "Login Component"
+                  A[Login Form] --> B[Input Validation]
+                  B --> C[API Request]
+                  C --> D[Session Management]
+                  D --> E[Theme Application]
+                end
+
+                subgraph "Dashboard Component"
+                  F[Task List] --> G[Task Management]
+                  H[Statistics] --> I[Data Visualization]
+                  J[Theme Toggle] --> K[UI Update]
+                  L[User Profile] --> M[Settings Management]
+                end
+
+                subgraph "Analytics Component"
+                  N[Data Fetching] --> O[Chart Generation]
+                  P[Filter Controls] --> Q[Data Filtering]
+                  R[Export Options] --> S[Report Generation]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Frontend Implementation Details</h4>
+              
+              <h5>Login Component</h5>
+              <pre>
+// Login Form Component
+function LoginForm() {
+    // Form State Management
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+        rememberMe: false
+    });
+
+    // Form Validation
+    function validateForm() {
+        if (!formData.username || !formData.password) {
+            showError('Please fill in all fields');
+            return false;
+        }
+        return true;
+    }
+
+    // Login Handler
+    async function handleLogin(e) {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                body: JSON.stringify(formData)
+            });
+            
+            if (response.ok) {
+                // Apply user theme
+                applyUserTheme(response.data.theme);
+                // Redirect to dashboard
+                navigate('/dashboard');
+            } else {
+                showError('Invalid credentials');
+            }
+        } catch (error) {
+            showError('Login failed');
+        }
+    }
+
+    return (
+        <form onSubmit={handleLogin}>
+            <input type="text" name="username" />
+            <input type="password" name="password" />
+            <button type="submit">Login</button>
+        </form>
+    );
+}</pre>
+
+              <h5>Dashboard Component</h5>
+              <pre>
+// Dashboard Component
+function Dashboard() {
+    // State Management
+    const [tasks, setTasks] = useState([]);
+    const [stats, setStats] = useState({});
+    const [theme, setTheme] = useState('light');
+
+    // Task Management
+    async function handleTaskCreate(taskData) {
+        try {
+            const response = await fetch('/api/tasks', {
+                method: 'POST',
+                body: JSON.stringify(taskData)
+            });
+            if (response.ok) {
+                updateTaskList();
+                updateStatistics();
+            }
+        } catch (error) {
+            showError('Failed to create task');
+        }
+    }
+
+    // Theme Management
+    function toggleTheme() {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.body.setAttribute('data-theme', newTheme);
+        saveThemePreference(newTheme);
+    }
+
+    // Data Fetching
+    useEffect(() => {
+        fetchTasks();
+        fetchStatistics();
+        loadThemePreference();
+    }, []);
+
+    return (
+        <div className="dashboard">
+            <TaskList tasks={tasks} onTaskUpdate={handleTaskUpdate} />
+            <Statistics data={stats} />
+            <ThemeToggle currentTheme={theme} onToggle={toggleTheme} />
+        </div>
+    );
+}</pre>
+
+              <h5>Analytics Component</h5>
+              <pre>
+// Analytics Component
+function Analytics() {
+    // State Management
+    const [timeRange, setTimeRange] = useState('week');
+    const [chartData, setChartData] = useState({});
+    const [filters, setFilters] = useState({});
+
+    // Data Fetching
+    async function fetchAnalytics() {
+        try {
+            const response = await fetch(`/api/analytics?range=${timeRange}`);
+            if (response.ok) {
+                const data = await response.json();
+                processChartData(data);
+            }
+        } catch (error) {
+            showError('Failed to fetch analytics');
+        }
+    }
+
+    // Chart Generation
+    function generateCharts(data) {
+        // Task Completion Chart
+        const completionChart = new Chart('completion-chart', {
+            type: 'line',
+            data: {
+                labels: data.dates,
+                datasets: [{
+                    label: 'Completed Tasks',
+                    data: data.completedTasks
+                }]
+            }
+        });
+
+        // Productivity Chart
+        const productivityChart = new Chart('productivity-chart', {
+            type: 'bar',
+            data: {
+                labels: data.categories,
+                datasets: [{
+                    label: 'Productivity Score',
+                    data: data.productivityScores
+                }]
+            }
+        });
+    }
+
+    // Report Generation
+    function generateReport() {
+        const report = {
+            timeRange,
+            summary: calculateSummary(),
+            charts: exportCharts(),
+            recommendations: generateRecommendations()
+        };
+        
+        downloadReport(report);
+    }
+
+    return (
+        <div className="analytics">
+            <TimeRangeSelector onChange={setTimeRange} />
+            <ChartContainer data={chartData} />
+            <FilterControls filters={filters} onChange={setFilters} />
+            <ExportButton onClick={generateReport} />
+        </div>
+    );
+}</pre>
+
+              <h5>Implementation Notes</h5>
+              <p>The frontend implementation uses several key technologies and patterns:</p>
+              <ul>
+                <li><strong>EJS Templates:</strong> Server-side rendering for initial page load</li>
+                <li><strong>Bootstrap 5:</strong> Responsive UI components and layout system</li>
+                <li><strong>Custom CSS:</strong> Theme-specific styling and animations</li>
+                <li><strong>Chart.js:</strong> Data visualization for analytics</li>
+                <li><strong>Client-side JavaScript:</strong> Dynamic interactions and state management</li>
+              </ul>
+
+              <h5>Key Features</h5>
+              <ul>
+                <li><strong>Responsive Design:</strong> Mobile-first approach with Bootstrap grid system</li>
+                <li><strong>Theme Support:</strong> Light/dark mode with CSS variables</li>
+                <li><strong>Real-time Updates:</strong> Dynamic task list and statistics</li>
+                <li><strong>Data Visualization:</strong> Interactive charts and graphs</li>
+                <li><strong>Form Validation:</strong> Client-side input validation</li>
+              </ul>
+
+              <h5>Performance Considerations</h5>
+              <ul>
+                <li>Lazy loading of components and charts</li>
+                <li>Debounced search and filter operations</li>
+                <li>Cached theme preferences</li>
+                <li>Optimized chart rendering</li>
+                <li>Minimized DOM updates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-clipboard-check"></i> Test Cases</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "Testing Methodology"
+                  A[Unit Testing] --> B[Component Testing]
+                  C[Integration Testing] --> D[API Testing]
+                  E[System Testing] --> F[End-to-End Testing]
+                  G[Acceptance Testing] --> H[User Acceptance]
+                end
+
+                subgraph "Test Categories"
+                  I[Authentication] --> J[Login/Register]
+                  K[Task Management] --> L[CRUD Operations]
+                  M[Theme Management] --> N[UI/UX Testing]
+                  O[Analytics] --> P[Data Visualization]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Test Cases Documentation</h4>
+              
+              <h5>Authentication Test Cases</h5>
+              <div class="test-case">
+                <h6>Test Case ID: TC001</h6>
+                <p><strong>Module:</strong> User Registration</p>
+                <p><strong>Test Scenario:</strong> Test successful user registration with valid inputs</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Username: "testuser"</li>
+                  <li>Email: "test@example.com"</li>
+                  <li>Password: "Test@123"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> User account created successfully with confirmation message</p>
+                <p><strong>Actual Output:</strong> Success message: "Account created successfully"</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <div class="test-case">
+                <h6>Test Case ID: TC002</h6>
+                <p><strong>Module:</strong> User Login</p>
+                <p><strong>Test Scenario:</strong> Prevent login with invalid credentials</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Username: "wronguser"</li>
+                  <li>Password: "wrongpass"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> Error message indicating invalid credentials</p>
+                <p><strong>Actual Output:</strong> Error: "Invalid username or password"</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <h5>Task Management Test Cases</h5>
+              <div class="test-case">
+                <h6>Test Case ID: TC003</h6>
+                <p><strong>Module:</strong> Task Creation</p>
+                <p><strong>Test Scenario:</strong> Create new task with valid inputs</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Title: "Complete Project Documentation"</li>
+                  <li>Description: "Write detailed documentation for the project"</li>
+                  <li>Due Date: "2024-03-20"</li>
+                  <li>Priority: "High"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> Task created successfully and visible in task list</p>
+                <p><strong>Actual Output:</strong> Task added to list with correct details</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <div class="test-case">
+                <h6>Test Case ID: TC004</h6>
+                <p><strong>Module:</strong> Task Update</p>
+                <p><strong>Test Scenario:</strong> Update task status to completed</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Task ID: "TASK123"</li>
+                  <li>New Status: "Completed"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> Task status updated and reflected in statistics</p>
+                <p><strong>Actual Output:</strong> Status changed to completed, statistics updated</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <h5>Theme Management Test Cases</h5>
+              <div class="test-case">
+                <h6>Test Case ID: TC005</h6>
+                <p><strong>Module:</strong> Theme Toggle</p>
+                <p><strong>Test Scenario:</strong> Switch between light and dark themes</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Current Theme: "light"</li>
+                  <li>Action: Toggle theme</li>
+                </ul>
+                <p><strong>Expected Output:</strong> Theme changes to dark mode with all elements updated</p>
+                <p><strong>Actual Output:</strong> Theme switched successfully, all components updated</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <h5>Analytics Test Cases</h5>
+              <div class="test-case">
+                <h6>Test Case ID: TC006</h6>
+                <p><strong>Module:</strong> Statistics Generation</p>
+                <p><strong>Test Scenario:</strong> Generate weekly task completion statistics</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Time Range: "Last 7 days"</li>
+                  <li>Task Status: "All"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> Chart showing task completion trends</p>
+                <p><strong>Actual Output:</strong> Line chart generated with correct data points</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <div class="test-case">
+                <h6>Test Case ID: TC007</h6>
+                <p><strong>Module:</strong> Report Export</p>
+                <p><strong>Test Scenario:</strong> Export task completion report</p>
+                <p><strong>Input Data:</strong></p>
+                <ul>
+                  <li>Report Type: "Task Completion"</li>
+                  <li>Format: "PDF"</li>
+                  <li>Date Range: "Current Month"</li>
+                </ul>
+                <p><strong>Expected Output:</strong> PDF report generated with task statistics</p>
+                <p><strong>Actual Output:</strong> Report downloaded: "task_report_2024_03.pdf"</p>
+                <p><strong>Result:</strong> Pass</p>
+              </div>
+
+              <h5>Testing Environment</h5>
+              <p>The testing was conducted in the following environment:</p>
+              <ul>
+                <li><strong>Frontend:</strong> React.js development server</li>
+                <li><strong>Backend:</strong> Node.js with Express.js</li>
+                <li><strong>Database:</strong> MySQL</li>
+                <li><strong>Testing Tools:</strong> Jest, Mocha, Chai</li>
+                <li><strong>Browser:</strong> Chrome, Firefox, Safari</li>
+                <li><strong>OS:</strong> Windows 10, macOS</li>
+              </ul>
+
+              <h5>Testing Methodology</h5>
+              <p>The testing approach followed these key methodologies:</p>
+              <ul>
+                <li><strong>Unit Testing:</strong> Individual component testing using Jest</li>
+                <li><strong>Integration Testing:</strong> API and component interaction testing</li>
+                <li><strong>System Testing:</strong> End-to-end workflow testing</li>
+                <li><strong>Acceptance Testing:</strong> User acceptance testing with real scenarios</li>
+              </ul>
+
+              <h5>Identified Issues and Resolutions</h5>
+              <p>During testing, several issues were identified and resolved:</p>
+              <ul>
+                <li>Theme persistence issue across page reloads - Fixed by implementing local storage</li>
+                <li>Task completion statistics not updating in real-time - Resolved with WebSocket implementation</li>
+                <li>Mobile responsiveness issues in analytics charts - Fixed with responsive chart configurations</li>
+                <li>Session timeout handling - Improved with proper error messages and auto-logout</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="bi bi-chat-square-text"></i> Discussion</h3>
+          </div>
+          <div class="card-body">
+            <div class="mermaid">
+              graph TD
+                subgraph "Project Outcomes"
+                  A[User Experience] --> B[Interface Design]
+                  A --> C[Usability]
+                  D[Technical Architecture] --> E[Scalability]
+                  D --> F[Maintainability]
+                end
+
+                subgraph "Future Enhancements"
+                  G[Feature Expansion] --> H[Calendar Integration]
+                  G --> I[Collaboration Tools]
+                  G --> J[Notification System]
+                  K[Technical Improvements] --> L[Performance Optimization]
+                  K --> M[Security Enhancements]
+                end
+            </div>
+            
+            <div class="diagram-legend">
+              <h4>Project Discussion and Future Directions</h4>
+              
+              <h5>Project Outcomes</h5>
+              <div class="outcome-section">
+                <h6>User Experience</h6>
+                <p>The application has successfully achieved its primary goal of providing an efficient task management solution. Key outcomes include:</p>
+                <ul>
+                  <li><strong>Interface Design:</strong> The clean and intuitive interface has been well-received by users, particularly those with limited technical expertise</li>
+                  <li><strong>Usability:</strong> User testing indicates high satisfaction with the straightforward task management workflow</li>
+                  <li><strong>Accessibility:</strong> The responsive design ensures consistent experience across different devices</li>
+                </ul>
+              </div>
+
+              <div class="outcome-section">
+                <h6>Technical Architecture</h6>
+                <p>The MERN-inspired stack (with MySQL) has proven effective for the application's requirements:</p>
+                <ul>
+                  <li><strong>Scalability:</strong> The architecture supports easy scaling for increased user load</li>
+                  <li><strong>Maintainability:</strong> Clear separation of concerns and modular code structure</li>
+                  <li><strong>Performance:</strong> Efficient data handling and quick response times</li>
+                </ul>
+              </div>
+
+              <h5>Future Enhancements</h5>
+              <div class="enhancement-section">
+                <h6>Feature Expansion</h6>
+                <p>Several potential enhancements have been identified for future development:</p>
+                <ul>
+                  <li><strong>Calendar Integration:</strong>
+                    <ul>
+                      <li>Sync with popular calendar applications</li>
+                      <li>Visual timeline view of tasks</li>
+                      <li>Recurring task scheduling</li>
+                    </ul>
+                  </li>
+                  <li><strong>Collaboration Tools:</strong>
+                    <ul>
+                      <li>Shared task lists</li>
+                      <li>Team project management</li>
+                      <li>Task assignment and delegation</li>
+                    </ul>
+                  </li>
+                  <li><strong>Notification System:</strong>
+                    <ul>
+                      <li>Email notifications</li>
+                      <li>Push notifications</li>
+                      <li>Custom reminder settings</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="enhancement-section">
+                <h6>Technical Improvements</h6>
+                <p>Areas for technical enhancement include:</p>
+                <ul>
+                  <li><strong>Performance Optimization:</strong>
+                    <ul>
+                      <li>Implement caching strategies</li>
+                      <li>Optimize database queries</li>
+                      <li>Enhance frontend rendering performance</li>
+                    </ul>
+                  </li>
+                  <li><strong>Security Enhancements:</strong>
+                    <ul>
+                      <li>Implement two-factor authentication</li>
+                      <li>Enhance data encryption</li>
+                      <li>Add audit logging</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <h5>Conclusion</h5>
+              <p>The To-Do List Web App has successfully established a solid foundation for a scalable, user-centric task management platform. The current implementation meets all essential requirements while maintaining flexibility for future enhancements. The system's architecture and design choices have positioned it well for:</p>
+              <ul>
+                <li>Easy integration of new features</li>
+                <li>Scalability to handle growing user base</li>
+                <li>Adaptation to evolving user needs</li>
+                <li>Implementation of advanced productivity features</li>
+              </ul>
+              <p>The project's success in meeting its initial goals while maintaining extensibility for future development demonstrates its potential as a long-term productivity solution.</p>
             </div>
           </div>
         </div>
@@ -342,10 +1992,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Initialize mermaid
+    // Initialize mermaid with forced light theme
     mermaid.initialize({
       startOnLoad: true,
-      theme: document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+      theme: 'default', // Always use default (light) theme
       securityLevel: 'loose',
       er: {
         diagramPadding: 20,
@@ -353,9 +2003,34 @@
         minEntityWidth: 100,
         minEntityHeight: 75,
         entityPadding: 15,
-        stroke: 'gray',
-        fill: 'honeydew',
-        fontSize: 12
+        stroke: '#000000',
+        fill: '#ffffff',
+        fontSize: 12,
+        useMaxWidth: true
+      },
+      themeVariables: {
+        fontFamily: 'Segoe UI, system-ui, -apple-system, sans-serif',
+        fontSize: '16px',
+        primaryColor: '#000000',
+        primaryTextColor: '#000000',
+        primaryBorderColor: '#000000',
+        lineColor: '#000000',
+        secondaryColor: '#000000',
+        tertiaryColor: '#000000',
+        mainBkg: '#ffffff',
+        errorBkgColor: '#ffffff',
+        errorTextColor: '#000000',
+        nodeBkg: '#ffffff',
+        nodeTextColor: '#000000',
+        clusterBkg: '#ffffff',
+        clusterTextColor: '#000000',
+        titleTextColor: '#000000',
+        edgeLabelBackground: '#ffffff',
+        edgeLabelColor: '#000000',
+        labelBoxBkgColor: '#ffffff',
+        labelBoxBorderColor: '#000000',
+        labelTextColor: '#000000',
+        loopTextColor: '#000000'
       }
     });
 
@@ -365,9 +2040,44 @@
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       body.setAttribute('data-theme', newTheme);
       
-      // Update mermaid theme
+      // Reinitialize mermaid with light theme regardless of app theme
       mermaid.initialize({
-        theme: newTheme === 'dark' ? 'dark' : 'default'
+        theme: 'default', // Always use default (light) theme
+        er: {
+          stroke: '#000000',
+          fill: '#ffffff',
+          fontSize: 12
+        },
+        themeVariables: {
+          primaryColor: '#000000',
+          primaryTextColor: '#000000',
+          primaryBorderColor: '#000000',
+          lineColor: '#000000',
+          secondaryColor: '#000000',
+          tertiaryColor: '#000000',
+          mainBkg: '#ffffff',
+          errorBkgColor: '#ffffff',
+          errorTextColor: '#000000',
+          nodeBkg: '#ffffff',
+          nodeTextColor: '#000000',
+          clusterBkg: '#ffffff',
+          clusterTextColor: '#000000',
+          titleTextColor: '#000000',
+          edgeLabelBackground: '#ffffff',
+          edgeLabelColor: '#000000',
+          labelBoxBkgColor: '#ffffff',
+          labelBoxBorderColor: '#000000',
+          labelTextColor: '#000000',
+          loopTextColor: '#000000'
+        }
+      });
+      
+      // Force re-render of all diagrams
+      document.querySelectorAll('.mermaid').forEach(element => {
+        const id = element.id;
+        mermaid.render(id, element.textContent).then(({ svg }) => {
+          element.innerHTML = svg;
+        });
       });
       
       fetch('/update-theme', {

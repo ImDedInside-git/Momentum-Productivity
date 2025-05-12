@@ -1,0 +1,172 @@
+Chapter 4: System Design
+
+4.1 Architecture of the System
+
+The Momentum To-Do List Web App follows a three-tier architecture:
+
+1. Presentation Layer (Client Interface)
+   - EJS templates for dynamic content rendering
+   - Bootstrap 5 for responsive UI components
+   - Client-side JavaScript for interactive features
+   - Theme management (light/dark mode)
+
+2. Application Layer (Server)
+   - Node.js and Express.js backend
+   - RESTful API endpoints
+   - Authentication middleware
+   - Session management
+   - Route handlers
+
+3. Data Layer
+   - Database models (Users, Tasks)
+   - Data validation
+   - Query optimization
+   - Data persistence
+
+4.2 Level 0 DFD (Data Flow Diagram)
+
+The context-level DFD shows the interaction between:
+- Users (Regular and Admin)
+- The To-Do List System
+- External entities (Database, Authentication Service)
+
+Key processes:
+1. User Authentication
+2. Task Management
+3. User Management (Admin)
+4. Theme Management
+5. Data Storage and Retrieval
+
+4.3 Detailed DFD for the Proposed System
+
+Level 1 DFD breaks down into core modules:
+
+1. User Management Module
+   - Registration
+   - Authentication
+   - Profile Management
+   - Role Management
+
+2. Task Management Module
+   - Task Creation
+   - Task Updates
+   - Task Deletion
+   - Task Filtering
+   - Task Sorting
+
+3. Admin Dashboard Module
+   - User Overview
+   - Task Statistics
+   - System Management
+   - User Control
+
+4. Theme Management Module
+   - Theme Switching
+   - Preference Storage
+   - UI Updates
+
+4.4 Class Diagram
+
+The system's main classes include:
+
+1. User Class
+   - Attributes: userId, username, password, email, isAdmin, theme
+   - Methods: authenticate(), updateProfile(), changeTheme()
+
+2. Task Class
+   - Attributes: taskId, userId, title, description, status, dueDate, priority
+   - Methods: create(), update(), delete(), complete()
+
+3. Admin Class (extends User)
+   - Attributes: adminId, permissions
+   - Methods: manageUsers(), viewStatistics(), systemSettings()
+
+4. ThemeManager Class
+   - Attributes: currentTheme, preferences
+   - Methods: toggleTheme(), savePreference(), applyTheme()
+
+4.5 Sequence Diagram
+
+Key processes illustrated:
+
+1. User Authentication Flow
+   - Login request
+   - Credential verification
+   - Session creation
+   - Dashboard redirection
+
+2. Task Management Flow
+   - Task creation request
+   - Validation
+   - Database storage
+   - UI update
+
+3. Admin Operations Flow
+   - User management
+   - Task oversight
+   - System configuration
+
+4. Theme Switching Flow
+   - Theme toggle request
+   - Preference update
+   - UI refresh
+
+4.6 ER Diagram
+
+Entity Relationships:
+
+1. User Entity
+   - Primary Key: user_id
+   - Attributes: username, password, email, is_admin, theme
+   - Relationships: One-to-Many with Tasks
+
+2. Task Entity
+   - Primary Key: task_id
+   - Attributes: title, description, status, due_date, priority
+   - Foreign Key: user_id
+   - Relationships: Many-to-One with User
+
+3. Theme Entity
+   - Primary Key: theme_id
+   - Attributes: name, colors, styles
+   - Relationships: One-to-One with User
+
+4.7 Schema Diagram
+
+Database Tables:
+
+1. Users Table
+   - user_id (PK)
+   - username
+   - password
+   - email
+   - is_admin
+   - theme
+   - created_at
+   - last_activity
+
+2. Tasks Table
+   - task_id (PK)
+   - user_id (FK)
+   - title
+   - description
+   - status
+   - due_date
+   - priority
+   - created_at
+   - completed_at
+
+3. Themes Table
+   - theme_id (PK)
+   - name
+   - colors
+   - styles
+   - is_active
+
+4. User_Stats Table
+   - stat_id (PK)
+   - user_id (FK)
+   - total_tasks
+   - completed_tasks
+   - last_activity
+   - productivity_score 

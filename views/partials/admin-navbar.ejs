@@ -1,0 +1,144 @@
+<!-- Admin Navbar Component -->
+<nav class="admin-navbar">
+  <div class="navbar-brand">
+    <h1>Momentum</h1>
+    <div class="subtitle">Admin Panel</div>
+  </div>
+  
+  <div class="navbar-nav">
+    <a href="/admin" class="nav-link <%= path === '/admin' ? 'active' : '' %>">
+      <i class="bi bi-speedometer2"></i> Admin Dashboard
+    </a>
+    <a href="/admin/users" class="nav-link <%= path === '/admin/users' ? 'active' : '' %>">
+      <i class="bi bi-people"></i> User Management
+    </a>
+    <a href="/admin/settings" class="nav-link <%= path === '/admin/settings' ? 'active' : '' %>">
+      <i class="bi bi-gear"></i> System Settings
+    </a>
+    <a href="/admin/logs" class="nav-link <%= path === '/admin/logs' ? 'active' : '' %>">
+      <i class="bi bi-journal-text"></i> System Logs
+    </a>
+    <a href="/diagrams" class="nav-link <%= path === '/diagrams' ? 'active' : '' %>">
+      <i class="bi bi-diagram-3"></i> Database Diagrams
+    </a>
+  </div>
+
+  <div class="navbar-actions">
+    <button class="nav-link" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars"></i>
+    </button>
+    <form action="/logout" method="POST" class="d-inline">
+      <button type="submit" class="nav-link text-danger">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </form>
+  </div>
+</nav>
+
+<style>
+  .admin-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px var(--shadow-color);
+  }
+
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-brand h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .navbar-brand .subtitle {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+  }
+
+  .navbar-nav {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navbar-nav .nav-link {
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .navbar-nav .nav-link:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+  }
+
+  .navbar-nav .nav-link.active {
+    background: var(--hover-bg);
+    font-weight: 600;
+  }
+
+  .navbar-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .navbar-actions .nav-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+  }
+
+  .navbar-actions .nav-link:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+  }
+
+  .navbar-actions .nav-link.text-danger:hover {
+    background: #dc3545;
+    color: white !important;
+    border-color: #dc3545;
+  }
+
+  @media (max-width: 768px) {
+    .admin-navbar {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .navbar-nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .navbar-actions {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style> 

@@ -1,0 +1,112 @@
+<!-- Base Sidebar Component -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h1>Momentum</h1>
+    <div class="subtitle">Productivity Tracker</div>
+    <p class="text-muted">Welcome, <%= session.username %></p>
+  </div>
+  <nav>
+    <a href="/" class="nav-link <%= path === '/' ? 'active' : '' %>">
+      <i class="bi bi-house-door"></i> Dashboard
+    </a>
+    <a href="/calendar" class="nav-link <%= path === '/calendar' ? 'active' : '' %>">
+      <i class="bi bi-calendar3"></i> Calendar
+    </a>
+    <a href="/analytics" class="nav-link <%= path === '/analytics' ? 'active' : '' %>">
+      <i class="bi bi-graph-up"></i> Analytics
+    </a>
+    <a href="/account" class="nav-link <%= path === '/account' ? 'active' : '' %>">
+      <i class="bi bi-person"></i> Profile
+    </a>
+    <hr>
+    <button class="nav-link w-100 text-start" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars"></i> Toggle Theme
+    </button>
+    <form action="/logout" method="POST">
+      <button type="submit" class="nav-link w-100 text-start text-danger">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </form>
+  </nav>
+</div>
+
+<style>
+  .sidebar {
+    width: 280px;
+    background: var(--sidebar-bg);
+    padding: 2rem;
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px var(--shadow-color);
+  }
+
+  .sidebar-header {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0;
+  }
+
+  .sidebar-header .subtitle {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-top: -5px;
+  }
+
+  .nav-link {
+    color: var(--text-color);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    background: var(--hover-bg);
+    color: var(--text-color);
+    transform: translateX(5px);
+  }
+
+  .nav-link.active {
+    background: var(--hover-bg);
+    color: var(--text-color);
+  }
+
+  .nav-link i {
+    margin-right: 10px;
+  }
+
+  button.nav-link {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-weight: 600;
+    box-shadow: 0 2px 5px var(--shadow-color);
+  }
+
+  button.nav-link:hover {
+    background: var(--hover-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    transform: translateX(5px);
+  }
+
+  button.nav-link.text-danger {
+    color: #dc3545 !important;
+  }
+
+  button.nav-link.text-danger:hover {
+    background: #dc3545;
+    color: white !important;
+  }
+</style> 
