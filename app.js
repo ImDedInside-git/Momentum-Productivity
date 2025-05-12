@@ -1,4 +1,5 @@
 // jshint esversion:6
+require('dotenv').config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,17 +17,17 @@ app.use(express.static('public'));
 
 // Session configuration
 app.use(session({
-  secret: "your_secret_key",
+  secret: process.env.SESSION_SECRET || "your_secret_key",
   resave: false,
   saveUninitialized: true
 }));
 
-// Create a connection pool instead of a single connection
+// Create a connection pool using environment variables
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "productivity_tracker",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -425,8 +426,8 @@ app.get("/about", (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'shettipavan75@gmail.com', // Your Gmail address
-        pass: 'your-app-password' // You'll need to generate an App Password from Google Account settings
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 

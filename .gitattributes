@@ -1,2 +1,18 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Database Configuration
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=1234
+DB_NAME=productivity_tracker
+
+# Session Configuration
+SESSION_SECRET=your_secret_key
+
+# Email Configuration
+EMAIL_USER=shettipavan75@gmail.com
+EMAIL_PASS=your-app-password
+
+# Server Configuration
+PORT=3000
