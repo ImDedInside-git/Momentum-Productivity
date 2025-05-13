@@ -449,9 +449,69 @@
       border-color: transparent;
       color: white;
     }
+
+    /* Hamburger Menu Styles */
+    .hamburger-menu {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .hamburger-menu i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger-menu {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body data-theme="<%= theme %>">
+  <button class="hamburger-menu" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="overlay" onclick="toggleSidebar()"></div>
+
   <div class="dashboard-container">
     <div class="sidebar">
       <div class="sidebar-header">
