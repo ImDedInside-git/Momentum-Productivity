@@ -7,15 +7,10 @@ const mysql = require("mysql2");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer"); // Add nodemailer import
-const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const taskController = require('./taskController');
 
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
-app.set('layout', 'layouts/main');
-app.set("layout extractScripts", true);
-app.set("layout extractStyles", true);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -144,26 +139,12 @@ app.use((req, res, next) => {
   }
 });
 
-// Middleware to check if user is authenticated
-const isAuthenticated = (req, res, next) => {
-    if (req.session.userId) {
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
-
-// Middleware to check if user is not authenticated (for login/register pages)
-const isNotAuthenticated = (req, res, next) => {
-    if (!req.session.userId) {
-        next();
-    } else {
-        res.redirect('/dashboard');
-    }
-};
-
 // Home route
-app.get("/", isAuthenticated, (req, res) => {
+app.get("/", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
   // Get user's theme preference
   pool.query('SELECT theme_preference FROM users WHERE id = ?', [req.session.userId], (err, userResults) => {
     if (err) {
@@ -284,13 +265,81 @@ app.get("/", isAuthenticated, (req, res) => {
   });
 });
 
-// Login route - use no layout
-app.get("/login", isNotAuthenticated, (req, res) => {
-    res.render('login', { 
-        layout: false,
-        error: req.query.error,
-        title: 'Login'
+// Registration route
+app.get("/register", (req, res) => {
+  res.render("register", { error: null });
+});
+
+app.post("/register", async (req, res) => {
+  const { username, password, confirmPassword, email, dob } = req.body;
+  
+  // Validate input
+  if (!username || !password || !confirmPassword || !email || !dob) {
+    return res.render("register", { error: "All fields are required" });
+  }
+
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    return res.render("register", { error: "Passwords do not match" });
+  }
+
+  try {
+    // Get a connection from the pool
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.error("Error getting connection from pool:", err);
+        return res.render("register", { error: "Database connection error. Please try again." });
+      }
+
+      try {
+        // Check if username exists
+        const [userResults] = await connection.promise().query(
+          "SELECT id FROM users WHERE username = ?",
+          [username]
+        );
+
+        if (userResults.length > 0) {
+          connection.release();
+          return res.render("register", { error: "Username already exists" });
+        }
+
+        // Check if email exists
+        const [emailResults] = await connection.promise().query(
+          "SELECT id FROM users WHERE email = ?",
+          [email]
+        );
+
+        if (emailResults.length > 0) {
+          connection.release();
+          return res.render("register", { error: "Email already exists" });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Insert new user
+        await connection.promise().query(
+          "INSERT INTO users (username, password, email, dob, role) VALUES (?, ?, ?, ?, 'user')",
+          [username, hashedPassword, email, dob]
+        );
+
+        connection.release();
+        res.redirect("/login");
+      } catch (error) {
+        console.error("Registration error:", error);
+        connection.release();
+        res.render("register", { error: "Registration failed. Please try again." });
+      }
     });
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    res.render("register", { error: "An unexpected error occurred. Please try again." });
+  }
+});
+
+// Login route
+app.get("/login", (req, res) => {
+  res.render("login", { error: null });
 });
 
 app.post("/login", (req, res) => {
@@ -678,8 +727,12 @@ app.post("/update-theme", express.json(), (req, res) => {
   );
 });
 
-// Calendar route - use main layout
-app.get("/calendar", isAuthenticated, (req, res) => {
+// Calendar route
+app.get("/calendar", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
   const query = req.session.role === 'admin' 
     ? `SELECT tasks.*, users.username 
        FROM tasks 
@@ -716,18 +769,20 @@ app.get("/calendar", isAuthenticated, (req, res) => {
       }
     }));
 
-    res.render('calendar', {
-      title: 'Calendar',
-      path: '/calendar',
-      user: req.session.user,
+    res.render("calendar", { 
       tasks: formattedTasks,
+      session: req.session,
       theme: req.session.theme || 'light'
     });
   });
 });
 
-// Analytics route - use main layout
-app.get("/analytics", isAuthenticated, (req, res) => {
+// Analytics route
+app.get("/analytics", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
   // Get user's theme preference
   pool.query('SELECT theme_preference FROM users WHERE id = ?', [req.session.userId], (err, userResults) => {
     if (err) {
@@ -861,10 +916,7 @@ app.get("/analytics", isAuthenticated, (req, res) => {
             dailyActivity[dayIndex] = parseInt(item.count) || 0;
           });
 
-          res.render('analytics', {
-            title: 'Analytics',
-            path: '/analytics',
-            user: req.session.user,
+          res.render("analytics", {
             totalTasks,
             completedTasks,
             urgentTasks,
@@ -873,7 +925,8 @@ app.get("/analytics", isAuthenticated, (req, res) => {
             weeklyLabels,
             weeklyCompletions,
             dailyActivity,
-            theme: req.session.theme || 'light'
+            session: req.session,
+            theme: userTheme
           });
         });
       });
